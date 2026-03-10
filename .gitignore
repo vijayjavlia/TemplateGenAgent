@@ -1,3 +1,3 @@
-node_modules/
-docs/
-example/
+.tools/node_modules/
+.github/docs/
+.github/example/
