@@ -394,9 +394,105 @@ Don't give half mapping and file , example create full xml files and sql views
 This instruction set is designed to guide the generation of a dynamic document template system that maps data from HTML templates through XML mappings to SQL views and database tables. The instructions cover the entire process, from creating properties files to generating HTML, XML, and SQL code, ensuring a cohesive and functional system. For context read file:[.github/docs/template_generation.md](.github/docs/template_generation.md)
 [.github/example/**]
 
+# Step 9 — Workflow Documentation File (Post-Confirmation, Mandatory)
+
+**After the user confirms the generated template is correct**, create a **workflow documentation file** that fully describes how the template works, end-to-end flow, every file's purpose, and all data mappings.
+
+## When to Create
+- ONLY after the user explicitly confirms the template files are correct and complete
+- Ask the user: *"Template generation is complete. Shall I create the workflow documentation file?"*
+- Do NOT create this file during template generation — wait until confirmation
+
+## File Details
+- **File name:** `processname_docname_WORKFLOW.md` (e.g., `RW_CLOS_CA_Main_WORKFLOW.md`)
+- **Location:** Inside the template output folder (same folder as all other generated files)
+
+## Required Sections in Workflow File
+
+### 1. Template Overview
+- Template/Document name
+- Process name
+- Purpose and description of the document
+- Date of generation
+
+### 2. File Inventory
+- Complete list of ALL generated files with their purpose
+- File name → Role mapping table
+  | File | Type | Purpose |
+  |---|---|---|
+  | `processname_docname.properties` | Config | Template metadata and view mapping |
+  | `docname.html` | HTML Template | Dynamic document with ##TAG## markers |
+  | `processname_docname_MAIN.xml` | Variable XML | Maps individual variables to DB columns |
+  | ... | ... | ... |
+
+### 3. System Flow Diagram (Text-Based)
+- Show the complete data flow from database to rendered document:
+```
+Database Tables
+    ↓
+SQL Views (SELECT + JOINs)
+    ↓
+XML Mapping Files (FIELDS / GRIDFIELDS)
+    ↓
+HTML Template (##TAG## markers replaced with data)
+    ↓
+Final Rendered Document
+```
+
+### 4. Variable Mapping Table
+- Complete mapping of every individual variable across all layers:
+  | HTML Tag | XML EXTNAME | XML TEMPNAME | SQL View Column | Source Table |
+  |---|---|---|---|---|
+  | `##PROPOSAL_NO##` | PROPOSAL_NO | PROPOSAL_NO | PROPOSAL_NO | route_table |
+  | ... | ... | ... | ... | ... |
+
+### 5. Grid/Table Mapping Table
+- For each grid, document:
+  - Grid name (HTML tag)
+  - Grid XML file name
+  - ListView registration (MAPXMLNAME, DBTABLENAME)
+  - Column-level mapping:
+    | Grid Column (LBLNAME) | DBCOLNAME | MAPCOLNAME | Width | Align | SQL View Column |
+    |---|---|---|---|---|---|
+    | Facility | Facility | Facility | 14 | LEFT | Facility |
+    | ... | ... | ... | ... | ... | ... |
+
+### 6. SQL View Details
+- For each SQL view:
+  - View name
+  - Purpose (variable view or which grid)
+  - Source database table(s)
+  - JOIN conditions (if any)
+  - Column count
+
+### 7. How It Works — Step-by-Step
+- Describe the runtime flow in numbered steps:
+  1. System reads `.properties` file to get template config
+  2. System loads `docname.html` as the base template
+  3. System reads `processname_docname_MAIN.xml` to get variable field mappings
+  4. System queries the SQL view (EXTTABLENAME) to fetch variable data
+  5. System replaces each `##TAG##` in HTML with corresponding data from the view
+  6. For each grid: system reads `ListView.xml` → finds GRID XML → queries grid SQL view → renders table rows
+  7. Final document is assembled and rendered
+
+### 8. Key Configuration Reference
+- Properties file key settings and what they control
+- XMLFILENAME → which MAIN XML to load
+- EXTTABLENAME → which SQL view for variables
+- DBTABLENAME (per grid) → which SQL view for each grid
+
+### 9. Troubleshooting Guide
+- Common issues and how to resolve:
+  - Tag not replaced → Check XML EXTNAME matches HTML tag exactly (case-sensitive)
+  - Grid not rendering → Check ListView.xml registration (TEMPLBLNAME must match HTML tag)
+  - SQL view error → Verify column aliases match XML EXTNAME/DBCOLNAME exactly
+  - Missing data → Verify SQL view FROM/JOIN clause and source table
+
+---
+
 # Final Result 
 
-html page with table and variable mapping, xml mapping files for each variable/table, master xml table list file, sql views for each table/variable, and any necessary supporting functions/procedures.
+html page with table and variable mapping, xml mapping files for each variable/table, master xml table list file, sql views for each table/variable, any necessary supporting functions/procedures, and a workflow documentation file (after user confirmation).
 
 # Vector Database (Mandatory Context Retrieval)
 
