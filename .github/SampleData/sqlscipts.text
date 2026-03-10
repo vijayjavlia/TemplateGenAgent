@@ -1,0 +1,523 @@
+ CREATE OR REPLACE FORCE EDITIONABLE VIEW "IMBANK_IBPS5"."RW_CLOS_CA_MAIN" ("WORKITEM_NAME", "PROPOSAL_NO", "APPLICATION_DATE", "BRANCH", "BUSSINESS_SEGMENT", "BORROWER_NAME", "CUSTOMER_CIF", "GROUP_NAME", "GROUP_CIF", "SUB_SUB_INDUSTRY_TYPE", "SUB_INDUSTRY_TYPE", "CLASSIFICATION", "DATE_OF_BIRTH", "RELATIONSHIP_DATE", "BORROWING_SINCE", "RELATIONSHIP_MANAGER", "LAST_REVIEW_STEP", "NEXT_REVIEW_STEP", "EXTENSION_SOUGHT", "CUMULATIVE_EXTENSION", "CURRENT_ACCOUNT_STRATEGY", "PROPOSED_ACCOUNT_STRATEGY", "APPROVING_AUTHORITY", "RISK_RATING", "RISK_RATING_ENV_SOCIAL", "SUMMARY_OF_PURPOSAL", "OVERVIEW_REMARKS_CLOB", "COMMENTS_CLOB", "OVERVIEW_BORROWER_BUSINESS", "MGMNT_TP_REMARKS", "CONCESSION_CLOB", "JUSTIFICATION", "BUSSINESS_ACTIVITY", "INDUSTRY_REVIEW", "TECHNOLOGY_USAGE", "RECENT_DEVELOP", "SALES_PROFITABITY", "INVENTORY", "DEBT_COMMENTS", "CRED_COMMENTS", "OTHER_CURRENT_ASSETS", "OVERDRAFT", "DIRECTORS_ACCOUNTS", "OTHER_PAYABLES", "OTHER_CURRENT_ASSETS_LIABILTY", "ACCOUNT_CONDUCT_REMARKS", "LOAN_REPAYMENT_REMARKS", "NON_FUNDED_REMARKS", "CUSTOMER_PROFIT_REMARKS", "GROUP_PROFIT_REMARKS", "SHARE_COMMENTS_CLOB", "TANGIBLE_REMARKS", "INTANGIBLE_REMARKS", "REMARKS_POLICY", "FINANCIAL_COV_REMARKS", "NON_FINANCIAL_COV_REMARKS", "REPAYMENTS_INCOME_REMARKS", "REPAYMENTS_RATE_REMARKS", "REPAYMENTS_BANK_REMARKS", "GROUP_AGGREGATE_EXPOSURE", "GROUP_AGGREGATE_PRESENT", "GROUP_AGGREGATE_OUTSTANDING", "GROUP_AGGREGATE_INCREASE", "IM_MEMBER_TOTAL_PROPOSED", "IM_MEMBER_TOTAL_INC_DEC", "DILIGENCE_CHECKLIST", "NEMA_EIA_REPORT", "COMMENTS_ES", "ASSESSMENT_FAC_COMMENTS", "COLLATERAL_REMARKS", "TANGIBLE_REMARKS1", "INTANGIBLE_REMARKS1", "ASSESMENT_OF_FACILIY_REMARKS", "NEW_EXIST_FACILTY_REMARKS_CLOB", "SWOT_STRENGTH_CLOB", "SWOT_WEAKNESS_CLOB", "SWOT_OPP_CLOB", "SWOT_THREAT_CLOB", "SECURITYCVROMV", "SECURITYCVRFSV", "TOTAL_CHARGE", "FSV", "OMV", "EAUDITCOMMENTS", "IAUDITCOMMENTS", "WORKING_CAPITAL", "FINANACIAL_NET_ASSETS", "FINANCIAL_NET_GROWTH", "FINANCIAL_CASH_FLOW", "CORE_CAPITAL_AMOUNT", "IM_MEMBER_TOTAL_LIMIT", "IM_MEMBER_TOTAL_OUTSTANDING", "TOTAL_SHARSHOLDINGS", "GROUP_PRESENT_CONC_LIMIT", "GROUP_EXPOSRE_CONC_LIMIT", "TOTAL_NONFUNDED", "TOTAL_FUNDED", "COMPLIANCE_COMMENTS", "REPAYMENT_ST_COMMENTS", "CUSTOMER_NAME", "AUDITOR", "CURRENCY_DENOMINATION", "AUDITOR_OPINION", "COLLATERAL_COMMENTS", "PREVIOUS_COVENANTS", "PROPOSED_COVENANTS", "FACILITY_COMMENTS_CLOB", "FIRST_SOURCE_INDEX", "SECOND_SOURCE_INDEX", "THIRD_SOURCE_INDEX", "FOURTH_SOURCE_INDEX", "PREPARED_BY_USERNAME", "PREPARED_BY_DESIGNATION", "PREPARED_BY_ENTRY_DATE_TIME", "RECOMMENDED_BY_USERNAME", "RECOMMENDED_BY_DESIGNATION", "RECOMMENDED_BY_ENTRY_DATE_TIME", "APPROVED_BY_USERNAME", "APPROVED_BY_DESIGNATION", "APPROVED_BY_ENTRY_DATE_TIME", "PHONE", "EMAIL", "CONTACT_PERSON", "PO_BOX", "PHYSICAL_ADDRESS", "PUBLICLY_LISTED", "POLITICALLY_EXPOSED", "MARKET_CAPITALISATION", "PREVIOUS_RISK_RATING", "CREDIT_REQUEST", "IS_IM_BANK_PARTY_INSIDER") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  (SELECT (workitem_name),
+           proposal_no,
+           application_date,
+           branch,
+           bussiness_segment,
+           borrower_name,
+           customer_cif,
+           group_name,
+           group_cif,
+           sub_sub_industry_type,
+           sub_industry_type,
+           classification,
+           date_of_birth,
+           relationship_date,
+           borrowing_since,
+           relationship_manager,
+           last_review_step,
+           next_review_step,
+		   extension_sought,
+		   cumulative_extension,
+           current_account_strategy,
+           proposed_account_strategy,
+           approving_authority,
+           risk_rating,
+           risk_rating_env_social,
+           summary_of_purposal,
+           overview_remarks_clob,
+           comments_clob,
+           overview_borrower_business,
+           Mgmnt_Tp_Remarks,
+           concession_clob,
+           justification,
+           bussiness_activity,
+           industry_review,
+           technology_usage,
+           recent_develop,
+           sales_profitabity,
+           inventory,
+           debt_comments,
+           cred_comments,
+           other_current_assets,
+           overdraft,
+           directors_accounts,
+           other_payables,
+           other_current_assets_liabilty,
+           account_conduct_remarks,
+           loan_repayment_remarks,
+           non_funded_remarks,
+           Customer_Profit_Remarks,
+           Group_Profit_Remarks,
+           Share_Comments_Clob,
+           Tangible_Remarks,
+           Intangible_Remarks,
+           Remarks_Policy,
+           Financial_Cov_Remarks,
+           Non_Financial_Cov_Remarks,
+           repayments_income_remarks,
+           repayments_rate_remarks,
+           repayments_bank_remarks,
+           
+           DECODE (NVL (group_aggregate_exposure, 0), 0, '-', TO_CHAR (group_aggregate_exposure / 1000, '999,999,999,999,990'))
+			AS group_aggregate_exposure,
+           DECODE (NVL (group_aggregate_present, 0), 0, '-', TO_CHAR (group_aggregate_present / 1000, '999,999,999,999,990'))
+           AS GROUP_AGGREGATE_PRESENT,
+           DECODE (NVL (group_aggregate_outstanding, 0), 0, '-', TO_CHAR (group_aggregate_outstanding / 1000, '999,999,999,999,990'))
+           AS group_aggregate_outstanding,
+		   DECODE (NVL (group_aggregate_increase, 0), 0, '-', TO_CHAR (group_aggregate_increase / 1000, '999,999,999,999,990'))
+           AS group_aggregate_increase,
+		   DECODE (NVL (im_member_total_proposed, 0), 0, '-', TO_CHAR (im_member_total_proposed / 1000, '999,999,999,999,990'))
+           AS im_member_total_proposed,
+           im_member_total_inc_dec,
+           diligence_checklist,
+           nema_eia_report,
+           comments_es,
+           assessment_fac_comments,
+           collateral_remarks,
+           tangible_remarks1,
+           intangible_remarks1,
+           assesment_of_faciliy_remarks,
+           new_exist_facilty_remarks_clob,
+           swot_strength_clob,
+           swot_weakness_clob,
+           swot_opp_clob,
+           swot_threat_clob,
+           SecurityCvrOMV,
+           SecurityCvrFSV,
+           Total_Charge,
+           FSV,
+           OMV,
+           eauditcomments,
+           iauditcomments,
+           working_capital,
+           finanacial_net_assets,
+           financial_net_growth,
+           financial_cash_flow,
+           core_capital_amount,
+           --TO_CHAR (aggergate_conc_limit / 1000, '999,999,999,999,990')
+           --AS aggergate_conc_limit,
+           DECODE (
+              NVL (group_aggregate_present, 0)
+              + NVL (im_member_total_limit, 0),
+              0, '-',
+              TO_CHAR ((NVL(group_aggregate_present,0) + NVL(im_member_total_limit,0)) / 1000, '999,999,999,999,990'))
+              AS im_member_total_limit,
+           DECODE (
+              NVL(group_aggregate_outstanding, 0)
+              + NVL (im_member_total_outstanding, 0),
+              0, '-',
+              TO_CHAR ((NVL(group_aggregate_outstanding,0) + NVL(im_member_total_outstanding,0)) / 1000, '999,999,999,999,990'))
+              AS im_member_total_outstanding,
+           total_sharsholdings,
+           ROUND ( (group_aggregate_present / core_capital_amount) * 100, 2)
+              AS group_present_conc_limit,
+           ROUND ( (group_aggregate_exposure / core_capital_amount) * 100, 2)
+              AS group_exposre_conc_limit,
+           total_nonfunded,
+           total_funded,
+           compliance_comments,
+           REPAYMENT_ST_COMMENTS,
+           customer_name,
+           auditor,
+           currency_denomination,
+           auditor_opinion,
+           COLLATERAL_COMMENTS,
+           PREVIOUS_COVENANTS,
+           PROPOSED_COVENANTS,
+		   facility_Comments_Clob,
+		   FIRST_SOURCE_INDEX,
+   SECOND_SOURCE_INDEX,
+   THIRD_SOURCE_INDEX,
+   FOURTH_SOURCE_INDEX,
+		   PREPARED_BY_USERNAME,
+           PREPARED_BY_DESIGNATION,
+           PREPARED_BY_ENTRY_DATE_TIME,
+           RECOMMENDED_BY_USERNAME,
+		   RECOMMENDED_BY_DESIGNATION,
+		   RECOMMENDED_BY_ENTRY_DATE_TIME,
+		   APPROVED_BY_USERNAME,
+		   APPROVED_BY_DESIGNATION,
+		   APPROVED_BY_ENTRY_DATE_TIME,
+		   PHONE,
+		   EMAIL,
+		   CONTACT_PERSON,
+		   PO_BOX,
+		   PHYSICAL_ADDRESS,
+		   PUBLICLY_LISTED,
+		   POLITICALLY_EXPOSED,
+		   MARKET_CAPITALISATION,
+		   PREVIOUS_RISK_RATING,
+		   CREDIT_REQUEST,
+		   IS_IM_BANK_PARTY_INSIDER
+
+      FROM (SELECT (customer.workitem_name) AS workitem_name,
+                   (   customer.workitem_name
+                    || '_'
+                    || EXTRACT (YEAR FROM customer.application_iniation_date))
+                      AS proposal_no,
+                   TO_CHAR (customer.application_iniation_date, 'dd/MM/yyyy')
+                      AS application_date,
+                   customer.branch_name AS branch,
+                   customer.business_segment AS bussiness_segment,
+                   customer.borrower_name AS borrower_name,
+                   customer.cif_id AS customer_cif,
+                   customer.group_name AS group_name,
+                   customer.group_cif_id AS group_cif,
+                   customer.sub_sub_industry_type AS sub_sub_industry_type,
+                   customer.industry_sub_type AS sub_industry_type,
+                   customer.current_asset_classification AS classification,
+                   TO_CHAR (customer.date_of_incorporation, 'dd/MM/yyyy')
+                      AS date_of_birth,
+                   TO_CHAR (customer.relationship_date, 'dd/MM/yyyy')
+                      AS relationship_date,
+                   TO_CHAR (customer.borrowing_since, 'dd/MM/yyyy')
+                      AS borrowing_since,
+                   customer.RELATIONSHIP_MANAGER AS relationship_manager,
+                   TO_CHAR (customer.last_review_date, 'dd/MM/yyyy')
+                      AS last_review_step,
+                   TO_CHAR (customer.next_review_date, 'dd/MM/yyyy')
+                      AS next_review_step,
+					customer.extension_sought AS extension_sought,
+					customer.cumulative_extension AS cumulative_extension,
+                   decision.current_account_strategy
+                      AS current_account_strategy,
+                   decision.current_proposal_strategy
+                      AS proposed_account_strategy,
+                   ext.approving_authority AS approving_authority,
+                   decision.current_risk_rating AS risk_rating,
+                   env.risk_rating AS risk_rating_env_social,
+
+                   (SELECT VALUE
+                      FROM RW_CLOS_SPREADS_OUTPUT
+                     WHERE     workitem_name = customer.workitem_name
+                           AND identification_no = customer.identification_no
+                           AND cell = 'B1')
+                      AS customer_name,
+                   (SELECT VALUE
+                      FROM RW_CLOS_SPREADS_OUTPUT
+                     WHERE     workitem_name = customer.workitem_name
+                           AND identification_no = customer.identification_no
+                           AND cell = 'B3')
+                      AS auditor,
+                   (SELECT VALUE
+                      FROM RW_CLOS_SPREADS_OUTPUT
+                     WHERE     workitem_name = customer.workitem_name
+                           AND identification_no = customer.identification_no
+                           AND cell = 'E1')
+                      AS currency_denomination,
+                   (SELECT VALUE
+                      FROM RW_CLOS_SPREADS_OUTPUT
+                     WHERE     workitem_name = customer.workitem_name
+                           AND identification_no = customer.identification_no
+                           AND cell = 'E2')
+                      AS auditor_opinion,
+                   cdata.collateral_comments AS COLLATERAL_COMMENTS,
+                   c.FINANCIAL_COVENANTS_REMARKS AS PREVIOUS_COVENANTS,
+                   c.NON_FINANCIAL_COVENANTS_REMARKS AS PROPOSED_COVENANTS,
+                   REPLACE (decision.summary_proposal_index,
+                            CHR (10),
+                            '<br/>')
+                      AS summary_of_purposal,
+                   (REPLACE (
+                       REGEXP_REPLACE (
+                          REPLACE (REPLACE (client.overview, ' ', ' '),
+                                   '&' || 'nbsp;',
+                                   ''),
+                          ' {2,}',
+                          ''),
+                       '’',
+                       '''')
+                    || ' '
+                    || REPLACE (
+                          REGEXP_REPLACE (
+                             REPLACE (
+                                REPLACE (client_details.business_activity,
+                                         ' ',
+                                         ' '),
+                                '&' || 'nbsp;',
+                                ''),
+                             ' {2,}',
+                             ''),
+                          '’',
+                          ''''))
+                      AS overview_remarks_clob,
+                   client.comments AS comments_clob,
+                   client.OVERVIEW_DOC_INDEX AS overview_borrower_business,
+                   client.COMMENTS_DOC_INDEX AS Mgmnt_Tp_Remarks,
+                   concsumm.actual_pricing_index AS concession_clob,
+                   concsumm.pricing_justification AS justification,
+                   client_details.business_activity AS bussiness_activity,
+                   (   client_details.industry_review
+                    || '<br/>'
+                    || client_details.technology_usage
+                    || '<br/>'
+                    || client_details.recent_development)
+                      AS industry_review,
+                   client_details.technology_usage AS technology_usage,
+                   client_details.recent_development AS recent_develop,
+                   REPLACE (sales.sales_profit, CHR (10), '<br/>')
+                      AS sales_profitabity,
+                   c.trade_inventory AS inventory,
+                   c.trade_comments AS debt_comments,
+                   c.liability_comments AS cred_comments,
+                   c.trade_other AS other_current_assets,
+                   c.liability_overdraft AS overdraft,
+                   c.director_account AS directors_accounts,
+                   c.other_payable AS other_payables,
+                   c.other_current_asset AS other_current_assets_liabilty,
+                   c.actcdt_oprtngact_comment AS account_conduct_remarks,
+                   c.actcdt_trmfaclty_comments AS loan_repayment_remarks,
+                   c.actcdt_nfundfclty_comments AS non_funded_remarks,
+                   c.CUST_PROFIT_JUST AS Customer_Profit_Remarks,
+                   c.GROUP_PROFIT_JUST AS Group_Profit_Remarks,
+                   c.SHARE_COMMENTS_INDEX AS Share_Comments_Clob,
+                   c.TANGIBLE_REMARKS_INDEX AS Tangible_Remarks,
+                   c.INTANGIBLE_REMARKS_INDEX AS Intangible_Remarks,
+                   c.POLICY_EXCEPTION_COMMENTS AS Remarks_Policy,
+                   c.FINANCIAL_COVENANTS_REMARKS AS Financial_Cov_Remarks,
+                   c.NON_FINANCIAL_COVENANTS_REMARKS
+                      AS Non_Financial_Cov_Remarks,
+                   c.assessment_rc_st_index AS REPAYMENT_ST_COMMENTS,
+                   REPLACE (c.assess_repay_income, CHR (10), '<br/>')
+                      AS repayments_income_remarks,
+                   REPLACE (c.assess_repay_interest, CHR (10), '<br/>')
+                      AS repayments_rate_remarks,
+                   REPLACE (c.assess_repay_bank, CHR (10), '<br/>')
+                      AS repayments_bank_remarks,
+                   c.group_aggregate_exposure AS group_aggregate_exposure,
+                   c.group_aggregate_present AS group_aggregate_present,
+                   c.group_aggregate_outstanding AS group_aggregate_outstanding,
+                   c.group_aggregate_increase AS group_aggregate_increase,
+                    --DECODE (
+                    --  NVL (c.GROUP_PROPOSED_TOTAL, 0),
+                    --  0, '-',
+                    --  TO_CHAR (c.GROUP_PROPOSED_TOTAL / 1000,
+                    --           '999,999,999,999,990'))
+                      c.group_aggregate_exposure
+					  AS IM_MEMBER_TOTAL_PROPOSED,
+                   --DECODE (NVL (c.GROUP_TOTAL_INCREASE_DECREASE, 0),
+                    --       0, '-',
+                    --       c.GROUP_TOTAL_INCREASE_DECREASE)
+                     '-' AS IM_MEMBER_TOTAL_INC_DEC,
+                   c.DILIGENCE_CHECKLIST AS DILIGENCE_CHECKLIST,
+                   c.NEMA_EIA_REPORT AS NEMA_EIA_REPORT,
+                   c.comp_comments_index AS COMMENTS_ES,
+                   c.assessment_facility_index AS ASSESSMENT_FAC_COMMENTS,
+                   repay.collateral_comments AS collateral_remarks,
+                   REPLACE (repay.tangible_remarks, CHR (10), '<br/>')
+                      AS tangible_remarks1,
+                   REPLACE (repay.intangible_remarks, CHR (10), '<br/>')
+                      AS intangible_remarks1,
+                   repay.assessment_facilities
+                      AS assesment_of_faciliy_remarks,
+                   facdata.facility_remarks_index
+                      AS new_exist_facilty_remarks_clob,
+                   swot.strength AS swot_strength_clob,
+                   swot.weakness AS swot_weakness_clob,
+                   swot.oppurtunities AS swot_opp_clob,
+                   swot.threats AS swot_threat_clob,
+                   DECODE (CEIL (NVL (cdata.OMV, 0)), 0, '-', cdata.OMV)
+                      AS SecurityCvrOMV,
+                   DECODE (CEIL (NVL (cdata.FSV, 0)), 0, '-', cdata.FSV)
+                      AS SecurityCvrFSV,
+                   DECODE (
+                      NVL (cdata.total_charge, 0),
+                      0, '-',
+                      TO_CHAR ( (cdata.total_charge / 1000),
+                               '999,999,999,999,990'))
+                      AS Total_Charge,
+                   DECODE (
+                      CEIL (NVL (ROUND ( (cdata.value_fsv / 1000), 1), 0)),
+                      0, '-',
+                      TO_CHAR (ROUND ( (cdata.value_fsv / 1000), 1),
+                               '999,999,999,999,990.0'))
+                      AS FSV,
+                   DECODE (
+                      CEIL (NVL (ROUND ( (cdata.value_omv / 1000), 1), 0)),
+                      0, '-',
+                      TO_CHAR (ROUND ( (cdata.value_omv / 1000), 1),
+                               '999,999,999,999,990.0'))
+                      AS OMV,
+                   eaudit.remarks_index AS eauditcomments,
+                   iaudit.remarks_index AS iauditcomments,
+                   REPLACE (wc.working_capital, CHR (10), '<br/>')
+                      AS working_capital,
+                   REPLACE (fa.fixed_asset_index, CHR (10), '<br/>')
+                      AS finanacial_net_assets,
+                   REPLACE (nw.net_worth, CHR (10), '<br/>')
+                      AS financial_net_growth,
+                   REPLACE (cf.cash_flow_index, CHR (10), '<br/>')
+                      AS financial_cash_flow,
+                   (SELECT core_capital_amount
+                      FROM RW_clos_core_capital_amount
+                     WHERE description = 'I bank core capital')
+                      AS core_capital_amount,
+                   /*(SELECT NVL (aggergate_conc_limit, 0)
+                      FROM rw_clos_conc_limits_txn
+                     WHERE description =
+                              'Single Obligor/ Group exposure limit- Aggregate exposure to any one person (net of provisions for NPA accounts). This policy does not apply to i) lending to public entities ii) transactions with other banks iii) Purchase of or advances made against clean or documentary bills of exchange or documents of title to goods entitling some person to payment outside Kenya for imports.'
+                           AND workitem_name = customer.workitem_name)
+                      AS aggergate_conc_limit,*/
+                   c.COMP_COMMENTS AS COMPLIANCE_COMMENTS,
+				   facdata.COMMENTS_ON_FACILITY as facility_Comments_Clob,
+				   repo.FIRST_SOURCE_INDEX as FIRST_SOURCE_INDEX,
+
+  repo.SECOND_SOURCE_INDEX as SECOND_SOURCE_INDEX,
+
+  repo.THIRD_SOURCE_INDEX as THIRD_SOURCE_INDEX,
+
+  repo.FOURTH_SOURCE_INDEX as FOURTH_SOURCE_INDEX,
+
+
+  dechist.PREPARED_BY_USERNAME,
+           dechist.PREPARED_BY_DESIGNATION,
+           dechist.PREPARED_BY_ENTRY_DATE_TIME,
+           dechist.RECOMMENDED_BY_USERNAME,
+		   dechist.RECOMMENDED_BY_DESIGNATION,
+		   dechist.RECOMMENDED_BY_ENTRY_DATE_TIME,
+		   dechist.APPROVED_BY_USERNAME,
+		   dechist.APPROVED_BY_DESIGNATION,
+		   dechist.APPROVED_BY_ENTRY_DATE_TIME,
+
+		condet.PHONE as PHONE,
+		   condet.EMAIL as EMAIL,
+		   condet.CONTACT_PERSON as CONTACT_PERSON,
+		   addet.PO_BOX as PO_BOX,
+		   addet.PHYSICAL_ADDRESS as PHYSICAL_ADDRESS,
+		   customer.PUBLICLY_LISTED as PUBLICLY_LISTED,
+		   customer.POLITICALLY_EXPOSED as POLITICALLY_EXPOSED,
+		   customer.MARKET_CAPITALISATION as MARKET_CAPITALISATION,
+		  decision.PREVIOUS_RISK_RATING as PREVIOUS_RISK_RATING,
+			customer.CREDIT_REQUEST as CREDIT_REQUEST,
+      (select x.COMPANY_TYPE FROM RW_CLOS_COLLATERAL_INSURANCE_DETAILS x full join  RW_CLOS_COLLATERAL_DETAILS y on x.CHILD_MAPPING= y.PARENT_MAPPING WHERE y.workitem_name=ext.workitem_name ) as "INSURANCE_COMPANY",
+ z.COMMENTS as "BACKGROUND_OF_BUSINESS",
+ zz.CASH_FLOW as Repayment_Capacity,
+ 
+			(select insider.IS_IM_BANK_PARTY_INSIDER from RW_CLOS_SHAREHOLDING_DIRECTOR_GUARANTOR_DETAILS where STAKEHOLDER_TYPE='Director' order by insider.workitem_name desc FETCH first 1 ROWS ONLY) as IS_IM_BANK_PARTY_INSIDER
+
+
+			 FROM rw_clos_customer_info customer
+
+			 LEFT OUTER JOIN rw_clos_decision_remarks decision
+                      ON customer.workitem_name = decision.workitem_name
+                  LEFT OUTER JOIN rw_clos_ext ext
+                      ON customer.workitem_name = ext.workitem_name
+                   LEFT OUTER JOIN rw_clos_ext_risk_rating risk
+                      ON customer.workitem_name = risk.workitem_name
+                   LEFT OUTER JOIN rw_clos_client_overview client
+                      ON customer.workitem_name = client.workitem_name
+                   LEFT OUTER JOIN rw_clos_client_details client_details
+                      ON customer.workitem_name =
+                            client_details.workitem_name
+                            
+                    LEFT OUTER JOIN RW_CLOS_FINANCIALS_CASH_FLOW zz on zz.workitem_name=ext.workitem_name        
+                   LEFT OUTER JOIN rw_clos_financials_pl sales
+                      ON customer.workitem_name = sales.workitem_name
+                   LEFT OUTER JOIN rw_clos_comments c
+                      ON customer.workitem_name = c.workitem_name
+                   LEFT OUTER JOIN rw_clos_repayment_terms repay
+                      ON customer.workitem_name = repay.workitem_name
+                   LEFT OUTER JOIN rw_clos_swot_analysis swot
+                      ON customer.workitem_name = swot.workitem_name
+                   LEFT OUTER JOIN rw_clos_financials_working wc
+                      ON customer.workitem_name = wc.workitem_name
+                   LEFT OUTER JOIN rw_clos_financials_fixed_asset fa
+                      ON customer.workitem_name = fa.workitem_name
+                   LEFT OUTER JOIN rw_clos_financials_net_worth nw
+                      ON customer.workitem_name = nw.workitem_name
+                   LEFT OUTER JOIN rw_clos_financials_cash_flow cf
+                      ON customer.workitem_name = cf.workitem_name
+                   LEFT OUTER JOIN RW_CLOS_COLLATERAL_DATA cdata
+                      ON customer.workitem_name = cdata.workitem_name
+                   LEFT OUTER JOIN rw_clos_external_audit eaudit
+                      ON customer.workitem_name = eaudit.workitem_name
+                   LEFT OUTER JOIN rw_clos_internal_audit iaudit
+                      ON customer.workitem_name = iaudit.workitem_name
+                   LEFT OUTER JOIN RW_CLOS_ENV_SOCIAL_LIST env
+                      ON customer.workitem_name = env.workitem_name
+                   LEFT OUTER JOIN rw_clos_facility_data facdata
+                      ON customer.workitem_name = facdata.workitem_name
+				   LEFT OUTER JOIN RW_CLOS_REPAYMENT_SOURCE repo
+                      ON customer.workitem_name = repo.workitem_name
+                   LEFT OUTER JOIN rw_clos_summary_concession concsumm
+                      ON customer.workitem_name = concsumm.workitem_name 
+                      LEFT OUTER JOIN RW_CLOS_REPAYMENT_SOURCE sor
+                      ON customer.workitem_name = sor.workitem_name
+
+					   LEFT OUTER JOIN RW_CLOS_DECISION_HISTORY hist
+                      ON customer.workitem_name = hist.workitem_name
+
+					   LEFT OUTER JOIN RW_CLOS_CONTACT_DETAIL condet
+                      ON customer.workitem_name = condet.workitem_name
+					   LEFT OUTER JOIN RW_CLOS_ADDRESS_DETAIL addet
+                      ON customer.workitem_name = addet.workitem_name
+
+					  LEFT OUTER JOIN RW_CLOS_SHAREHOLDING_DIRECTOR_GUARANTOR_DETAILS insider
+                      ON customer.workitem_name = insider.workitem_name
+               left outer join RW_CLOS_CLIENT_OVERVIEW z on z.workitem_name=ext.workitem_name       
+
+					  LEFT OUTER JOIN DECHISTORY_VW dechist
+                      ON customer.workitem_name = dechist.workitem_name
+
+                      -- LEFT OUTER JOIN clos_social_category soc
+                              -- ON customer.workitem_name = soc.workitem_name
+           ) s1
+           LEFT OUTER JOIN (  SELECT (NVL (SUM (proposed_limit_kes), 0))
+                                        AS im_member_total_limit,
+                                     (NVL (SUM (outstanding_balance_kes), 0))
+                                        AS im_member_total_outstanding,
+                                     workitem_name AS wi
+                                FROM rw_clos_borrowing
+                               WHERE BORROWING_MEMBER = 'Yes'
+                            GROUP BY workitem_name) s2
+              ON s1.workitem_name = s2.wi
+           LEFT OUTER JOIN (  SELECT workitem_name AS wn,
+                                     SUM (shareholder_percent)
+                                        AS total_sharsholdings
+                                FROM rw_clos_shareholder_name
+                            GROUP BY workitem_name) s3
+              ON s1.workitem_name = s3.wn
+           LEFT OUTER JOIN (  SELECT workitem_name AS wni,
+                                     TO_CHAR (SUM (total_nonfunded),
+                                              '999,999,999,999,990')
+                                        AS total_nonfunded,
+                                     TO_CHAR (SUM (total_funded),
+                                              '999,999,999,999,990')
+                                        AS total_funded
+                                FROM (  SELECT TO_CHAR (SUM (proposed_limit_kes))
+                                                  AS total_funded,
+                                               '' AS total_nonfunded,
+                                               workitem_name
+                                          FROM RW_clos_new_existing_facilities
+                                         WHERE facility_type IN
+                                                  ('Bills Discounting',
+                                                   'Term Loan',
+                                                   'Overdraft',
+                                                   'Temporary Overdraft',
+                                                   'Asset Finance',
+                                                   'Hire Purchase',
+                                                   'Insurance Premium Finance',
+                                                   'Lease Finance',
+                                                   'Short Term Loan')
+                                      GROUP BY workitem_name
+                                      UNION ALL
+                                        SELECT '' AS total_funded,
+                                               TO_CHAR (SUM (proposed_limit_kes))
+                                                  AS total_nonfunded,
+                                               workitem_name
+                                          FROM RW_clos_new_existing_facilities
+                                         WHERE facility_type NOT IN
+                                                  ('Bills Discounting',
+                                                   'Term Loan',
+                                                   'Overdraft',
+                                                   'Temporary Overdraft',
+                                                   'Asset Finance',
+                                                   'Hire Purchase',
+                                                   'Insurance Premium Finance',
+                                                   'Lease Finance',
+                                                   'Short Term Loan')
+                                      GROUP BY workitem_name) a
+                            GROUP BY workitem_name) s4
+
+              ON s1.workitem_name = s4.wni );

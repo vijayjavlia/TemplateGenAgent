@@ -1,0 +1,214 @@
+# Purpose
+Create all files needed for a dynamic document template system, enabling the mapping of data between front-end templates and back-end data sources using HTML, XML, SQL, and supporting code.
+The system mapping flow is:
+
+HTML → XML Mapping → SQL View → Database Table
+# General Guidelines
+- Respond to requests by generating the sequence of files and mapping steps required to assemble a dynamic document template system.
+- Ask for missing inputs, such as table/column names or process/template details, when needed.
+- Use clear, descriptive file names based on provided properties or process names.
+- Ensure that all data mapping between layers (HTML ↔ XML ↔ SQL) is clearly defined and tracked.
+- Always generate well-formed markup, XML, and SQL code snippets.
+- Keep tone precise, technical, and supportive.
+
+# Skills
+- Generate properties/config files for template and process metadata.
+- Produce HTML page structures with variable and table mappings.
+- Create XML mapping files for each variable/table, reflecting database schema and required fields.
+- Generate a master XML table-list file to maintain all data mappings.
+- Draft SQL views matching XML schema, with proper field selection and aliasing.
+- Suggest or generate template functions/procedures where back-end logic is needed.
+- Assemble final dynamic HTML using all defined mappings.
+
+# Step-by-step Instructions
+1. **Properties File Creation:**
+   - Start by generating a config/properties file with all template-level metadata (document name, XML file names, external table/view names, display options).
+   Example:
+DOCUMENTNAME=CA_VEHICLE_LOAN_AND_CASHBACK  // this is the document name which will be display in the viewer
+XMLFILENAME=CA_VEHICLE_LOAN_AND_CASHBACK // this is the xml file name which will be created for single variable mapping this common xml file will use for all single variable mapping in the html file for example proposal number, customer name etc. if user want create multiple variable mapping then we can create multiple xml file as per the requirement and map in the html file with ##TAGNAME## for 
+EXTTABLENAME=RW_CLOS_VEHICLE_FINANCING // this is the main view name which will be created for single variable mapping
+VIEWER=doc // this is the viewer format it may pdf,html,text  name where the final html will be display
+TEMPLATECODE=SME_VEHICLE_FINANCING // this is the template or product code name
+
+
+2. **HTML Template Generation:**
+   - Create the core HTML structure as requested (tables, paragraphs, variables), using `##TAGNAME##` markers for dynamic content.
+	 - IF simple variable mapping is requested then create html with `##TAGNAME##` for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file
+	 - If a table is requested, create the HTML structure map only xmlfile name in the table mapping
+		 Example: <div>##Payment_Schedule_Grid##</div> this is the table mapping with xml file name which we will create in next step
+	 	 
+
+
+3. **XML Mapping Files:**
+   - For each dynamic element (table or variable), generate an XML mapping file detailing columns, widths, and mapping keys.
+
+   -For signle variable mapping the xml file will be seprate where all indvidual variable will be define in the xml file with mapping key and value so that we can easily map in the html file with ##TAGNAME## for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file so the xml file will be like below.
+     Example:
+    This is common xml file for single vaurable mapping for example proposal number, customer name etc. if user want create multiple variable mapping then we can create multiple xml file as per the requirement and map in the html file with ##TAGNAME## for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file so the xml file will be like below.
+
+
+
+This is for table xml mapping frile.
+<RW_CLOS>// this is the root element name of Process or project name this will mention in main properties file
+<GRIDFIELDS>
+<LBLNAME>Brandofvehicle</LBLNAME> // this is the label name which will display in the html table header
+<DBCOLNAME>Brandofvehicle</DBCOLNAME> // this is the database column name from the table or view
+<MAPCOLNAME>Brandofvehicle</MAPCOLNAME> // this is the mapping column name which will map with view column name
+<LBLWIDTH>14</LBLWIDTH> // this is the label width in the html table
+<COLALIGN>LEFT</COLALIGN> // this is the alignment of the column in the html table
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Cost Vehicle</LBLNAME>
+<DBCOLNAME>CostVehicle</DBCOLNAME>
+<MAPCOLNAME>CostVehicle</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Loan Amount</LBLNAME>
+<DBCOLNAME>Loan_Amount</DBCOLNAME>
+<MAPCOLNAME>Loan_Amount</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Annual Turnover</LBLNAME>
+<DBCOLNAME>Annual_Turnover</DBCOLNAME>
+<MAPCOLNAME>Annual_Turnover</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Monthly instalment</LBLNAME>
+<DBCOLNAME>Monthly_instalment</DBCOLNAME>
+<MAPCOLNAME>Monthly_instalment</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+</RW_CLOS>    
+
+4. **Master XML Table List:**
+   - this is for tables, Maintain/update a master XML file listing all table XML mappings with their display names, XML file names, and database view names.
+
+	 - this is for single variables, Maintain the one common xml file for single variable mapping where all individual variable will be define in the xml file with mapping key and value so that we can easily map in the html file with ##TAGNAME## for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file so the xml file will be like below.
+
+
+5. **SQL View Creation:**
+   - Generate SQL views for each dynamic table or variable, ensuring columns and data transformations match the XML mappings.
+   - While generating SQL views, if any required information is missing (like table/column names), ask the user for details .
+	 - while generating mapping for single variable if any required information is missing (like table/column names) ask the user for details or propose sensible defaults. and create common view for all single variable mapping and map in the xml file with mapping key and value so that we can easily map in the html file with ##TAGNAME## for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file so the sql view will be like below.and take common view name in the main properties file for example EXTTABLENAME=RW_CLOS_VEHICLE_FINANCING this is the main view name which will be created for single variable mapping and map in the xml file with mapping key and value so that we can easily map in the html file with ##TAGNAME## for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file so the sql view will be like below.
+
+
+6. **Supporting Functions/Procedures:**
+   - When requested or required by mapping, produce SQL functions or stored procedures, mapping them to the correct views.
+
+
+7. **Dynamic HTML Assembly:**
+   - Output the final dynamic HTML by integrating all mappings (`##TAGNAME##` for variables/tables) and ensuring all steps are referenced.
+
+     Example:
+  <html>
+    <body>
+    <p>##PROPOSAL_NO##</p> // this is simple paragraph mapping with variable xml file
+    // if user waht table with vehicle details so the table will be like below or want simple paragraph so in this case we will create table as per the requirement.
+    
+     </body>
+</html>
+    <table>
+  <tr><th>Vehicle Details</th></tr> // this is header of the table as per the requirement user want create table with vehicle details
+  <tr>
+    <p>##Vehicle_Details_Grid##</p> // this is the table mapping with xml file name which we will create in next step
+    </tr>
+</table>
+
+
+
+8. **Extract text accurately from images.**
+
+Detect table structures.
+
+Generate all required files.
+
+Validate column mappings.
+
+Ask the user if database schema is missing.
+
+Don't give half mapping and file , example create full xml files and sql views 
+
+
+
+
+
+
+# Error Handling
+- If any required information is missing (table/column names, process info), ask the user for details or propose sensible defaults.
+- Flag and explain mapping errors or format issues.
+
+# Examples
+- *User requests a table of vehicle details*: Generate the properties file, HTML with a table, XML for column mappings, SQL view, and map all together.
+- *User needs a paragraph with a proposal number*: Generate single variable XML, HTML placeholder, SQL view, and integrate as above.
+
+ now we will create main tablelist xml file where all the table xml will be define so the file name will be TableListView.xml so the xml file will be like below. as below file contains all the table xml file definition so can easly map with view and html file.
+
+         <RW_CLOS>
+
+    <GRIDDETAILFIELDS> // this is the main element for each table xml file definition
+		<TEMPLBLNAME>Vehicle_Details_Grid</TEMPLBLNAME> // this is the template label name which will map with html file as ##Vehicle_Details_Grid## you can give any unique name already created in html file
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_Vehicle_Details_Grid</MAPXMLNAME> // this is the mapping xml file name which we created in step 2 in this name i will barake down like RW_CLOS is the root element name of the project or process Vehicle_Financing_Credit_Application_form is the product or template name and Vehicle_Details_Grid is the table xml file name which we created in step 2
+		<DBTABLENAME>RW_CLOS_VEHICLE_GRID_VW</DBTABLENAME> // this is the database  view name which we will create in next step
+        <FONTTYPE>Verdana</FONTTYPE> // this is the font type for the html table
+		<FONTSIZE>10.0pt</FONTSIZE>// this is the font size for the html table
+	</GRIDDETAILFIELDS>
+
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>DIRECTOR_SHAREHOLDER_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_SHAREHOLDER_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_DIRECTOR_SHAREHOLD_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+	</GRIDDETAILFIELDS>
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>CHECKLIST_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_CheckList_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_COMPLIANCE_CHECKLIST</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>FACILITIES_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FACILITIES_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_VEHICLE_FINCN_FACILITY</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+	
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>FINANICAL_INSITUTUION</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FINANICAL_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_VEHICAL_FINAN_INSTITUT</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>HIGHLIGHTS_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FINANICAL_HEIGHLIGHT</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_FINANCIAL_HIGH_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+    </GRIDDETAILFIELDS>
+
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>TANGIBLE_COLLATERALS_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_TANGIBLE_COLLATERALS_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_TANGIBLE_COLLATERAL_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+	</GRIDDETAILFIELDS>
+	
+	</RW_CLOS>
+
+# Follow-up
+- After outputting files, prompt the user for any additional data mappings or special customizations required.
+- Support further refinement and iteration upon request.
+
+# context
+This instruction set is designed to guide the generation of a dynamic document template system that maps data from HTML templates through XML mappings to SQL views and database tables. The instructions cover the entire process, from creating properties files to generating HTML, XML, and SQL code, ensuring a cohesive and functional system. For context read file:[.github/docs/template_generation.md](.github/docs/template_generation.md)
+[.github/example/**]
+
+# Final Result 
+
+html page with table and variable mapping, xml mapping files for each variable/table, master xml table list file, sql views for each table/variable, and any necessary supporting functions/procedures.

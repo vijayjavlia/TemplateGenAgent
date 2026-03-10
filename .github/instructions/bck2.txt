@@ -1,0 +1,356 @@
+# Purpose
+Create all files needed for a dynamic document template system, enabling the mapping of data between front-end templates and back-end data sources using HTML, XML, SQL, and supporting code.and the main thing is if any new requirement come from user then we will update this instruction file with new requirement after confirmation from user and if user rejected then we will ask for correct requirement and update instruction file with correct requirement for future use.
+
+The system mapping flow is:
+HTML → XML Mapping → SQL View → Database Table
+
+ 
+
+# General Guidelines
+- Respond to requests by generating the sequence of files and mapping steps required to assemble a dynamic document template system.
+- Ask for missing inputs, such as table/column names or process/template details, when needed.
+- Use clear, descriptive file names based on provided properties or process names.
+- Ensure that all data mapping between layers (HTML ↔ XML ↔ SQL) is clearly defined and tracked.
+- Always generate well-formed markup, XML, and SQL code snippets.
+- Keep tone precise, technical, and supportive.
+
+# Skills
+- Generate properties/config files for template and process metadata.
+- Produce HTML page structures with variable and table mappings.
+- Create XML mapping files for each variable/table, reflecting database schema and required fields.
+- Generate a master XML table-list file to maintain all data mappings.
+- Draft SQL views matching XML schema, with proper field selection and aliasing.
+- Suggest or generate template functions/procedures where back-end logic is needed.
+- Assemble final dynamic HTML using all defined mappings.
+- Extract text accurately from images when needed.
+- Detect table structures in images and generate corresponding HTML/XML/SQL.
+- Validate column mappings and flag any inconsistencies or missing information.
+- Propose sensible defaults when information is missing, but always confirm with the user.
+- Ensure that all generated files are complete and functional, avoiding partial outputs.
+- Provide clear error messages and guidance when issues arise.
+- Support iterative refinement based on user feedback.
+- Maintain a clear mapping between all layers (HTML, XML, SQL) for traceability and debugging.
+- Ensure that all generated code adheres to best practices for readability and maintainability.
+- Always confirm with the user before making assumptions about missing information or defaults.
+- If user requests new requiement and you geneated correct , confirm from user to use in future if user approved then update instruction file with new requirement and if user rejected then ask for correct requirement and update instruction file with correct requirement for future use.
+
+# Mandatory Pre-Generation Questions
+Before generating ANY template files, ALWAYS ask the user these questions first and wait for answers. Do not proceed until all mandatory inputs are collected.
+
+**Q1 — Process Name** *(ask once per template, mandatory)*
+> "What is the **process name** (e.g., `RW_CLOS`, `SME`, `CA`)?"
+- Used as: root XML element in all XML files, prefix in `XMLFILENAME` (`processname_docname_MAIN`), and `MAPXMLNAME` prefix in `TableListView.xml`.
+
+**Q2 — Variable View Name (EXTTABLENAME)** *(ask once per template, mandatory)*
+> "What is the **view name** for individual variables (e.g., `RW_CLOS_VEHICLE_FINANCING_VIEW`)?"
+- This is always a **view name**, not a raw table name — the underlying SQL view may join from multiple database tables.
+- Used as: `EXTTABLENAME` in the `.properties` file and as the view name in the variable SQL view (`CREATE OR REPLACE VIEW [name] AS ...`).
+- The SQL view body (SELECT columns and FROM/JOIN clauses) must be provided by the user or confirmed before generation.
+
+**Q3 — Grid/Table View Name** *(ask every time a new grid/table is detected in the template, mandatory)*
+> "What is the **view name** for the `[GRIDNAME]` grid (e.g., `RW_CLOS_VEHICLE_GRID_VW`)?"
+- This is always a **view name** — the underlying SQL view may join from multiple database tables.
+- Used as: `DBTABLENAME` in `TableListView.xml` and as the view name in the grid SQL view.
+- The SQL view body (SELECT columns and FROM/JOIN clauses) must be provided by the user or confirmed before generation.
+
+---
+
+# Step-by-step Instructions
+1. **Properties File Creation:**
+   - Start by generating a config/properties file with all template-level metadata (document name, XML file names, external table/view names, display options).
+   Example:
+DOCUMENTNAME=CA_VEHICLE_LOAN_AND_CASHBACK  // this is the document name which will be display in the viewer
+XMLFILENAME=CA_VEHICLE_LOAN_AND_CASHBACK_MAIN // this is the xml file name which will be created for single variable mapping. Naming convention: processname_docname_MAIN (e.g. RW_CLOS_CA_VEHICLE_LOAN_AND_CASHBACK_MAIN). This common xml file will be used for all single variable mapping in the html file for example proposal number, customer name etc. if user want create multiple variable mapping then we can create multiple xml file as per the requirement and map in the html file with ##TAGNAME## for 
+EXTTABLENAME=RW_CLOS_VEHICLE_FINANCING // this is the VIEW name for single variable mapping (always a view, not a raw table — may join multiple tables). Collected via Q2 before generation.
+VIEWER=doc // this is the viewer format it may pdf,html,text  name where the final html will be display
+TEMPLATECODE=SME_VEHICLE_FINANCING // this is the template or product code name
+
+
+2. **HTML Template Generation:**
+   - Create the core HTML structure as requested (tables, paragraphs, variables), using `##TAGNAME##` markers for dynamic content.
+	 - IF simple variable mapping is requested then create html with `##TAGNAME##` for example <p>##PROPOSAL_NO##</p> this is simple paragraph mapping with variable xml file
+	 - If a table is requested, create the HTML structure map only xmlfile name in the table mapping
+		 Example: <div>##Payment_Schedule_Grid##</div> this is the table mapping with xml file name which we will create in next step
+	 	 
+
+
+3. **XML Mapping Files:**
+   - For dynamic elements, generate XML mapping files with different structures for variables vs tables:
+   
+   **A. Single Variable Mapping (Common XML File):**
+   - Create ONE common XML file for all individual variables (paragraphs like ##PROPOSAL_NO##, ##payename##, ##recipientname##, ##recname##, ##rectype##)
+   - Use **FIELDS** structure for individual paragraph mappings with tags: EXTNAME, TEMPNAME, ISFORMAT, FORMAT
+   - **File naming convention: `processname_docname_MAIN.xml`** (e.g., `AMAZON_PAY_RECEIPT_MAIN.xml`, `RW_CLOS_CA_VEHICLE_LOAN_AND_CASHBACK_MAIN.xml`)
+   - The XMLFILENAME property in the .properties file must match this name (without extension)
+   - Root element matches the document/process name
+   
+     Example:
+     ```xml
+     <PAYMENT_RECEIPT>
+       <FIELDS>
+         <EXTNAME>PROPOSAL_NO</EXTNAME>
+         <TEMPNAME>PROPOSAL_NO</TEMPNAME>
+         <ISFORMAT>NA</ISFORMAT>
+         <FORMAT>NA</FORMAT>
+       </FIELDS>
+       <FIELDS>
+         <EXTNAME>payename</EXTNAME>
+         <TEMPNAME>payename</TEMPNAME>
+         <ISFORMAT>NA</ISFORMAT>
+         <FORMAT>NA</FORMAT>
+       </FIELDS>
+     </PAYMENT_RECEIPT>
+     ```
+
+   **B. Table/Grid Mapping (Separate XML Files):**
+   - Create SEPARATE XML files for each table/grid (##Payment_Schedule_Grid##, ##Vehicle_Details_Grid##)
+   - Use GRIDFIELDS structure with column width and alignment details
+   - File name pattern: [MAIN_NAME]_[GRID_NAME].xml (e.g., PAYMENT_RECEIPT_GRID.xml)
+   - Each table gets its own XML file with root element matching the grid name
+<RW_CLOS>// this is the root element name of Process or project name this will mention in main properties file
+<GRIDFIELDS>
+<LBLNAME>Brandofvehicle</LBLNAME> // this is the label name which will display in the html table header
+<DBCOLNAME>Brandofvehicle</DBCOLNAME> // this is the database column name from the table or view
+<MAPCOLNAME>Brandofvehicle</MAPCOLNAME> // this is the mapping column name which will map with view column name
+<LBLWIDTH>14</LBLWIDTH> // this is the label width in the html table
+<COLALIGN>LEFT</COLALIGN> // this is the alignment of the column in the html table
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Cost Vehicle</LBLNAME>
+<DBCOLNAME>CostVehicle</DBCOLNAME>
+<MAPCOLNAME>CostVehicle</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Loan Amount</LBLNAME>
+<DBCOLNAME>Loan_Amount</DBCOLNAME>
+<MAPCOLNAME>Loan_Amount</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Annual Turnover</LBLNAME>
+<DBCOLNAME>Annual_Turnover</DBCOLNAME>
+<MAPCOLNAME>Annual_Turnover</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+<GRIDFIELDS>
+<LBLNAME>Monthly instalment</LBLNAME>
+<DBCOLNAME>Monthly_instalment</DBCOLNAME>
+<MAPCOLNAME>Monthly_instalment</MAPCOLNAME>
+<LBLWIDTH>14</LBLWIDTH>
+<COLALIGN>LEFT</COLALIGN>
+</GRIDFIELDS>
+</RW_CLOS>    
+
+4. **Master XML Table List and Variable Mapping:**
+   
+   **A. Individual Variables (Common XML):**
+   - All individual variables (paragraphs) are defined in ONE common XML file
+   - File name matches XMLFILENAME property from main properties file
+   - Maps to single EXTTABLENAME view from properties file
+   - No registration needed in TableListView.xml (handled automatically)
+   
+   **B. Table/Grid Registration (TableListView.xml):**
+   - ONLY tables/grids need registration in TableListView.xml
+   - Each table XML gets registered with its own view name
+   - Used for table rendering and dynamic grid mapping
+
+
+5. **SQL View Creation:**
+   - Generate SQL views with different approaches for variables vs tables:
+   
+   **A. Single Variable View (Common View):**
+   - View name = EXTTABLENAME from .properties (collected via Q2 before generation)
+   - This is always a VIEW — the SELECT body may join from multiple underlying database tables
+   - Each SELECT column alias must exactly match the EXTNAME/TEMPNAME values in `processname_docname_MAIN.xml`
+   - The FROM/JOIN clause and source table names must be provided by the user (ask if not supplied)
+   - Add a header comment block referencing the MAIN.xml file and .properties file
+     Example:
+     ```sql
+     -- SQL View for AMAZON_PAY_RECEIPT individual variable fields
+     -- Maps to  : AMAZON_PAY_RECEIPT_MAIN.xml  (FIELDS: EXTNAME/TEMPNAME) this external table or view name
+     -- Referenced: EXTTABLENAME in AMAZON_PAY_RECEIPT.properties
+     CREATE OR REPLACE VIEW AMAZON_PAY_RECEIPT_VIEW AS
+     SELECT
+       'Paid successfully'            AS paymentstatus,
+       349                            AS amount,
+       'UPIIntent'                    AS paymenttype,
+       'VODAFONEIDEA LIMITED'         AS paidtoname,
+       'vil.payu@hdfcbank'            AS paidtoupi,
+       'Amazon Pay UPI'               AS paidfrommthd,
+       'Kotak Mahindra Bank ****9885' AS paidfrombank,
+       '9888495960@apl'               AS paidfrompmupi
+     FROM DUAL;
+     ```
+   
+   **B. Table/Grid Views (Separate Views):**
+   - Create SEPARATE views for each table/grid (collected via Q3 for every new grid)
+   - This is always a VIEW — the SELECT body may join from multiple underlying database tables
+   - Each view contains only the columns for that specific grid; aliases must match GRIDFIELDS DBCOLNAME
+   - The FROM/JOIN clause and source table names must be provided by the user (ask if not supplied)
+   - View name = answer from Q3; registered as DBTABLENAME in TableListView.xml
+   
+     Example:
+     ```sql
+     CREATE OR REPLACE VIEW PAYMENT_RECEIPT_GRID_VW AS
+     SELECT
+       'Paid successfully' AS PAID_STATUS,
+       349 AS AMOUNT,
+       '529223330106' AS UPI_TRANSACTION_ID
+     FROM DUAL;
+     ```
+   
+   **Complete File Structure Pattern:**
+   For a template with variables + table, always create this complete set:
+   1. [NAME].properties - Config file
+   2. [NAME].html - HTML with ##tagname## markers
+   3. [PROCESSNAME]_[DOCNAME]_MAIN.xml - Common XML for ALL individual variables (VARIABLEFIELDS)
+   4. [NAME]_[GRID].xml - Separate XML for each table (GRIDFIELDS)
+   5. [NAME]_VIEW.sql - SQL view for individual variables (EXTTABLENAME)
+   6. [NAME]_[GRID]_VW.sql - SQL view for each table
+   7. TableListView.xml - Registration for tables only (not variables)
+   
+   - While generating SQL views, if any required information is missing (like table/column names), ask the user for details or propose sensible defaults.
+
+
+6. **Supporting Functions/Procedures:**
+   - When requested or required by mapping, produce SQL functions or stored procedures, mapping them to the correct views.
+
+
+7. **Dynamic HTML Assembly:**
+   - Output the final dynamic HTML by integrating all mappings (`##TAGNAME##` for variables/tables) and ensuring all steps are referenced.
+
+     Example:
+  <html>
+    <body>
+    <p>##PROPOSAL_NO##</p> // this is simple paragraph mapping with variable xml file
+    // if user waht table with vehicle details so the table will be like below or want simple paragraph so in this case we will create table as per the requirement.
+    
+     </body>
+</html>
+    <table>
+  <tr><th>Vehicle Details</th></tr> // this is header of the table as per the requirement user want create table with vehicle details
+  <tr>
+    <p>##Vehicle_Details_Grid##</p> // this is the table mapping with xml file name which we will create in next step
+    </tr>
+</table>
+
+
+
+8. **Extract text accurately from images.**
+
+Detect table structures.
+
+Generate all required files.
+
+Validate column mappings.
+
+Ask the user if database schema is missing.
+
+Don't give half mapping and file , example create full xml files and sql views 
+
+# Error Handling
+- If any required information is missing (table/column names, process info), ask the user for details or propose sensible defaults.
+- Flag and explain mapping errors or format issues.
+
+# Examples
+- *User requests a table of vehicle details*: Generate the properties file, HTML with a table, XML for column mappings, SQL view, and map all together.
+- *User needs a paragraph with a proposal number*: Generate single variable XML, HTML placeholder, SQL view, and integrate as above.
+
+ now we will create main tablelist xml file where all the table xml will be define so the file name will be TableListView.xml so the xml file will be like below. as below file contains all the table xml file definition so can easly map with view and html file.
+
+         <RW_CLOS> // this is the root element name of Process 
+
+    <GRIDDETAILFIELDS> // this is the main element for each table xml file definition
+		<TEMPLBLNAME>Vehicle_Details_Grid</TEMPLBLNAME> // this is the template label name which will map with html file as ##Vehicle_Details_Grid## you can give any unique name already created in html file
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_Vehicle_Details_Grid</MAPXMLNAME> // this is the mapping xml file name which we created in step 2 in this name i will barake down like RW_CLOS is the root element name of the project or process Vehicle_Financing_Credit_Application_form is the product or template name and Vehicle_Details_Grid is the table xml file name which we created in step 2
+		<DBTABLENAME>RW_CLOS_VEHICLE_GRID_VW</DBTABLENAME> // this is the database  view name which we will create in next step
+        <FONTTYPE>Verdana</FONTTYPE> // this is the font type for the html table
+		<FONTSIZE>10.0pt</FONTSIZE>// this is the font size for the html table
+	</GRIDDETAILFIELDS>
+
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>DIRECTOR_SHAREHOLDER_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_SHAREHOLDER_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_DIRECTOR_SHAREHOLD_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+	</GRIDDETAILFIELDS>
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>CHECKLIST_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_CheckList_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_COMPLIANCE_CHECKLIST</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>FACILITIES_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FACILITIES_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_VEHICLE_FINCN_FACILITY</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+	
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>FINANICAL_INSITUTUION</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FINANICAL_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_VEHICAL_FINAN_INSTITUT</DBTABLENAME>
+	</GRIDDETAILFIELDS>
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>HIGHLIGHTS_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_FINANICAL_HEIGHLIGHT</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_FINANCIAL_HIGH_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+    </GRIDDETAILFIELDS>
+
+	<GRIDDETAILFIELDS>
+		<TEMPLBLNAME>TANGIBLE_COLLATERALS_GRID</TEMPLBLNAME>
+		<MAPXMLNAME>RW_CLOS_Vehicle_Financing_Credit_Application_form_TANGIBLE_COLLATERALS_GRID</MAPXMLNAME>
+		<DBTABLENAME>RW_CLOS_CA_IM_LIFELINE_TANGIBLE_COLLATERAL_VW</DBTABLENAME>
+		<FONTTYPE>Verdana</FONTTYPE>
+		<FONTSIZE>10.0pt</FONTSIZE>
+	</GRIDDETAILFIELDS>
+	
+	</RW_CLOS>
+
+# Follow-up
+- After outputting files, prompt the user for any additional data mappings or special customizations required.
+- Support further refinement and iteration upon request.
+
+# context
+This instruction set is designed to guide the generation of a dynamic document template system that maps data from HTML templates through XML mappings to SQL views and database tables. The instructions cover the entire process, from creating properties files to generating HTML, XML, and SQL code, ensuring a cohesive and functional system. For context read file:[.github/docs/template_generation.md](.github/docs/template_generation.md)
+[.github/example/**]
+
+# Final Result 
+
+html page with table and variable mapping, xml mapping files for each variable/table, master xml table list file, sql views for each table/variable, and any necessary supporting functions/procedures.
+
+# Vector Database (Mandatory Context Retrieval)
+
+**IMPORTANT: Before starting any task, the agent MUST call the MCP Qdrant vector database (`get_context`) to retrieve relevant context.**
+
+## When to call `get_context`:
+- **Before generating any new files** (HTML, XML, SQL, properties) — search for existing patterns, naming conventions, and related templates.
+- **Before modifying existing files** — search for related mappings, dependencies, and current data structures.
+- **When the user asks a question about the project** — search for relevant documentation, schema details, or prior template examples.
+- **When resolving ambiguity** — if tag names, column names, view names, or table structures are unclear, query the vector database for matching context.
+- **Before creating SQL views** — search for actual database table/column names and schema information.
+- **Before creating XML mappings** — search for existing mapping patterns and field definitions.
+
+## How to call:
+- Use **both** MCP tools for context retrieval:
+  - `get_context` — vector semantic search (Qdrant embeddings)
+  - `page_search` with `topK: 3` — BM25 keyword search (vectorless, always available)
+- **Always use dynamic queries based on the current template/task** — never hardcode a specific template name. Use the actual document name, process name, or topic from the user's current request.
+- Example query patterns (replace placeholders with actual values from the user's request):
+  - `"[DOCUMENTNAME] grid columns"` — e.g., "loan agreement grid columns"
+  - `"[DOCUMENTNAME] variable fields"` — e.g., "invoice variable fields"
+  - `"[PROCESS] view schema"` — e.g., "vehicle financing view schema"
+  - `"[TOPIC] template mapping"` — based on the current task context
+- Prefer `page_search` when looking for exact structure patterns (GRIDFIELDS, VARIABLEFIELDS, TableListView, SQL view format).
+- If one search returns insufficient results, try the other tool or use alternative keywords.
+
+## Purpose:
+- Ensures all generated files and mappings align with the latest project requirements and actual data structures.
+- Avoids assumptions by grounding responses in stored project knowledge.
+- Provides accurate column names, view names, and table structures from the indexed project documentation.

@@ -1,0 +1,177 @@
+# CA_Main — Complete Production Mapping Reference
+# Source files: SampleData/RW_CLOS_CA_Main.*
+# Process Name: RW_CLOS
+# Document Name: CA_Main
+# Properties XMLFILENAME: CA_Main (docname only — NOT full processname_docname)
+# Variable View (EXTTABLENAME): RW_CLOS_CA_TEMPLATE_VW
+
+# ============================================================
+# GRID → GRID XML FILE → DB VIEW (from RW_CLOS_CA_Main_ListView.xml)
+# ============================================================
+
+TEMPLBLNAME                     | MAPXMLNAME (GRID XML without .xml)                          | DBTABLENAME (DB view/table)
+---                             | ---                                                          | ---
+DIRECTOR_SHAREHOLDER_GRID       | RW_CLOS_CA_Main_SHAREHOLDER_GRID                            | RW_CLOS_CA_DIRECTOR_SHAREHOLD_VW
+Guarantor_GRID                  | RW_CLOS_CA_Main_GAURANTOR_GRID                              | RW_CLOS_CA_Gaurantor_VW
+GUARANTOR_STKH_NAME             | RW_CLOS_CA_MAIN_GUARANTOR_STKH_GRID                         | RW_CLOS_CA_MAIN_GUARANTOR_STKH_VW
+FACILITIES_GRID                 | RW_CLOS_CA_Main_FACILITIES_GRID                             | CA_ADHOC_FACILITY_GRID_VW
+FUNDED_TERM_FACILITIES          | RW_CLOS_CA_Main_FACILITIES_GRID                             | RW_CLOS_FUNDED_TERM_VW
+DECISION_HISTORY_GRID           | RW_CLOS_CA_Adhoc_Facilities_DECISION_HISTORY_GRID           | rw_clos_decision_history
+CUSTOMER_VISIT_GRIDS            | RW_CLOS_CA_MEDIUM_SEGMENT_CUSTOMER_VISIT_GRIDS              | RW_CLOS_BUSINESS_DEVELOPMENTS_VW
+CRB_CHECK_GRID                  | RW_CLOS_CA_Main_CRB_Checks_GRID                             | RW_CLOS_CRB_DETAILS
+RISK_MITIGATION_GRID            | RW_CLOS_CA_MEDIUM_SEGMENT_RISK_MITIGATION_GRID              | RW_CLOS_RISK_IDENTIFICATION_VW
+CHECKLIST_GRID                  | RW_CLOS_CA_Main_CheckList_GRID                              | RW_CLOS_COMPLIANCE_CHECKLIST
+FAC_TO_RELATED_PARTIES_GRID     | RW_CLOS_CA_Main_FAC_TO_RELATED_PARTIES_GRID                 | RW_CLOS_CA_GRP_EXP_VW
+TANGIBLE_COLLATERALS_GRID       | RW_CLOS_CA_MEDIUM_SEGMENT_TANGIBLE_COLLATERALS_GRID         | RW_CLOS_CA_TANGIBLE_COLLATERAL_VW
+INTANGIBLE_COLLATERAL_GRID      | RW_CLOS_CA_MEDIUM_SEGMENT_INTANGIBLE_COLLATERALS_GRID       | RW_CLOS_CA_INTAGIBLE_COLLATERAL_VW
+CUSTOMER_PROFITABILITY_GRID     | RW_CLOS_CA_Medium_Segment_CUSTOMER_PROFITABILITY_GRID       | RW_CLOS_CUSTOMER_PROFITABILITY
+GROUP_PROFITABILITY_GRID        | RW_CLOS_CA_MAIN_GROUP_PROFITABILITY_GRID                    | RW_CLOS_GROUP_PROFITABILITY
+CONC_OF_RISKS_GRID              | RW_CLOS_CA_Main_CONC_OF_RISKS_GRID                          | RW_CLOS_CA_CONC_OF_RISKS_GRID_VW
+ACCOUNT_CONDUCT_GRID_2          | RW_CLOS_CA_Main_ACCOUNT_CONDUCT_GRID_2                      | RW_CLOS_ACC_CONDUCT_SUMMARY
+BORROWING_GRID                  | RW_CLOS_CA_Main_BORROWING_GRID                              | RW_CLOS_CA_Main_BORROWING_VW
+INSURANCE_GRID                  | RW_CLOS_CA_Main_INSURANCE_GRID                              | RW_CLOS_INSURANCE_DETAILS_VW
+DEBATOR_NAME_GRID               | RW_CLOS_CA_Main_DEBATOR_NAME_GRID                           | RW_DEBATORS_NAME_VW
+CREDITORS_NAME_GRID             | RW_CLOS_CA_Main_CREDITORS_NAME_GRID                         | RW_CREDITORS_NAME_VW
+HIGHLIGHTS_GRID                 | RW_CLOS_CA_Main__FINANCIAL_HIGHLIGHTS_GRID                  | RW_CLOS_CA_FINANCIAL_HIGH_VW
+DISPERSION_OF_DEBTOR_GRID       | RW_CLOS_CA_Main_DISPERSION_OF_DEBTOR_GRID                   | RW_CLOS_CA_DEBTOR_DISP_VW
+DISPERSION_OF_CREDITORS_GRID    | RW_CLOS_CA_Main_DISPERSION_OF_CREDITORS_GRID                | RW_CLOS_CA_CREDITOR_DISP_VW
+POLICY_EXCEPTION_GRID           | RW_CLOS_CA_Main_POLICY_EXCEPTION_GRID                       | RW_CLOS_DECISION_POLICY
+
+# ============================================================
+# GRID XML COLUMNS (GRIDFIELDS: LBLNAME | DBCOLNAME | MAPCOLNAME | WIDTH | ALIGN)
+# ============================================================
+
+## SHAREHOLDER_GRID (DIRECTOR_SHAREHOLDER_GRID)
+Name of Directors/Shareholders  | NAME               | NAME               | 40 | LEFT
+Name of other Shareholders      | SHAREHOLDER        | SHAREHOLDER        | 30 | LEFT
+%                               | SHAREHOLDER_PERCENT| SHAREHOLDER_PERCENT| 10 | RIGHT
+
+## GAURANTOR_GRID (Guarantor_GRID)
+Name of Guarantors              | NAME               | NAME               | 40 | LEFT
+%                               | SHAREHOLDER_PERCENT| SHAREHOLDER_PERCENT| 10 | RIGHT
+
+## GUARANTOR_STKH_GRID
+Guarantor(s)(If Any)            | DETAILS_PARTY_NAME | DETAILS_PARTY_NAME | 15 | LEFT
+
+## FACILITIES_GRID
+Facility                        | Facility           | Facility           | 14 | LEFT
+Outstanding Amount              | Outstanding_Amount | Outstanding_Amount | 11 | RIGHT
+Present Limit                   | Present_Limit      | Present_Limit      | 8  | RIGHT
+Increase/Decrease               | INC_DEC            | INC_DEC            | 10 | RIGHT
+Proposed Limit                  | PROPOSED_LIMIT     | PROPOSED_LIMIT     | 10 | RIGHT
+Existing Pricing                | Existing_Pricing   | Existing_Pricing   | 15 | LEFT
+Proposed Pricing                | Proposed_Pricing   | Proposed_Pricing   | 15 | LEFT
+Tenor/Expiry date               | LIMIT_EXPIRY_DATE  | LIMIT_EXPIRY_DATE  | 15 | LEFT
+
+## BORROWING_GRID
+Name of Bank                    | BANK_NAME          | BANK_NAME          | 15 | LEFT
+Facility                        | Facility           | Facility           | 15 | LEFT
+Limit CCY'000                   | Limit              | Limit              | 15 | LEFT
+Balance                         | Balance_As_On      | Balance_As_On      | 15 | LEFT
+Security                        | Security           | Security           | 15 | LEFT
+A/C Status                      | Account_Status     | Account_Status     | 15 | LEFT
+
+## CHECKLIST_GRID
+Checklist:                      | CHECKLIST          | CHECKLIST          | 20 | LEFT
+Yes/No                          | RESPONSE           | RESPONSE           | 8  | CENTER
+Comment:                        | COMMENTS           | COMMENTS           | 8  | CENTER
+
+## CONC_OF_RISKS_GRID
+(blank)                         | DESCRIPTION        | DESCRIPTION        | 20 | LEFT
+Prudential Limit                | LIMIT              | LIMIT              | 20 | RIGHT
+Present Limit                   | PRESENT            | PRESENT            | 20 | RIGHT
+Proposed Limit                  | PROPOSED           | PROPOSED           | 20 | RIGHT
+
+## CRB_CHECK_GRID
+Party Name                      | PARTY_NAME         | PARTY_NAME         | 20 | LEFT
+Count of Non Performing Accounts| COUNT_NPA          | COUNT_NPA          | 20 | RIGHT
+Comments                        | COMMENTS           | COMMENTS           | 60 | LEFT
+
+## FAC_TO_RELATED_PARTIES_GRID
+Name                            | NAME1              | NAME1              | 25 | LEFT
+Balance                         | OUT_BALANCE        | OUT_BALANCE        | 25 | LEFT
+Limit                           | PRST_LIMIT         | PRST_LIMIT         | 25 | LEFT
+Pricing                         | PRICING_DETAILS    | PRICING_DETAILS    | 25 | LEFT
+Security                        | COLLATERAL_DETAILS | COLLATERAL_DETAILS | 25 | LEFT
+
+## INSURANCE_GRID
+Insurance Type                  | INSURANCE_TYPE     | INSURANCE_TYPE     | 20 | LEFT
+Company Type                    | COMPANY_TYPE       | COMPANY_TYPE       | 16 | LEFT
+Insurance Value                 | INSURANCE_VALUE    | INSURANCE_VALUE    | 16 | LEFT
+Bank Interest Noted             | BANK_INTEREST_NOTED| BANK_INTEREST_NOTED| 19 | LEFT
+Expiry Date                     | EXPIRY_DATE        | EXPIRY_DATE        | 16 | LEFT
+
+## ACCOUNT_CONDUCT_GRID_2
+(blank)                         | ACCOUNT            | ACCOUNT            | 30 | LEFT
+(blank)                         | LAST12MONTH        | LAST12MONTH        | 20 | LEFT
+(blank)                         | LASTREVIEW         | LASTREVIEW         | 20 | LEFT
+
+## GROUP_PROFITABILITY_GRID (note: DBCOLNAME contains SQL expression)
+Parameters                      | PARAMETERS                                                    | PARAMETERS | 25 | LEFT
+Actual (Last 12 months)         | TO_CHAR(NVL(REPLACE(ACTUAL,'NULL',0),0),'...') AS ACTUAL      | ACTUAL     | 25 | RIGHT
+Projected (Next 12 months)      | TO_CHAR(NVL(REPLACE(PROJECTED,'NULL',0),0),'...') AS PROJECTED| PROJECTED  | 25 | RIGHT
+
+## FINANCIAL_HIGHLIGHTS_GRID (HIGHLIGHTS_GRID)
+(blank)                         | HIGHLIGHT          | HIGHLIGHT          | 25 | LEFT
+(blank)                         | CURRENT_YEAR       | CURRENT_YEAR       | 25 | RIGHT
+(blank)                         | PREVIOUS_YEAR      | PREVIOUS_YEAR      | 25 | RIGHT
+
+## DISPERSION_OF_DEBTOR_GRID / DISPERSION_OF_CREDITORS_GRID
+Days                            | PARAM              | PARAM              | 16 | RIGHT
+Up to 30 Days                   | DAYSONE            | DAYSONE            | 16 | RIGHT
+31-60 Days                      | DAYSTWO            | DAYSTWO            | 16 | RIGHT
+61-90 Days                      | DAYSTHREE          | DAYSTHREE          | 16 | RIGHT
+>90 Days                        | OVERNINE           | OVERNINE           | 16 | RIGHT
+TOTAL                           | TOTAL              | TOTAL              | 16 | RIGHT
+
+## DEBATOR_NAME_GRID
+Name                            | DEBTOR_NAME        | DEBTOR_NAME        | 15 | CENTER
+Amount                          | DEBTOR_AMOUNT      | DEBTOR_AMOUNT      | 15 | CENTER
+Debtors Comments                | DEBTOR_COMMENTS    | DEBTOR_COMMENTS    | 30 | LEFT
+
+## CREDITORS_NAME_GRID
+Name                            | NAME_CREDITOR      | NAME_CREDITOR      | 15 | CENTER
+Amount                          | AMOUNT_CREDITOR    | AMOUNT_CREDITOR    | 15 | CENTER
+Creditors Comments              | COMMENTS_CREDITOR  | COMMENTS_CREDITOR  | 30 | LEFT
+
+## POLICY_EXCEPTION_GRID
+Policy Exception Description    | POLICY_EXCEPTION_DESC | POLICY_EXCEPTION_DESC | 25 | LEFT
+Mitigating Factors              | MITIGATING_FACTORS    | MITIGATING_FACTORS    | 25 | LEFT
+
+## ACCOUNT_TURNOVER_GRID (standalone reference — not in ListView, available as extra sample)
+Account No.                     | ACCOUNT_NO            | ACCOUNT_NO            | 14 | LEFT
+Average Balance                 | AVG_BAL               | AVG_BAL               | 11 | RIGHT
+Previous Average Balance        | PREV_AVG_BAL          | PREV_AVG_BAL          | 8  | RIGHT
+Highest Debit Balance           | HIGH_DEBIT_BAL        | HIGH_DEBIT_BAL        | 10 | RIGHT
+Previous High Debit Balance     | PREV_HIGH_DEBIT_BAL   | PREV_HIGH_DEBIT_BAL   | 10 | RIGHT
+Lowest Debit Balance            | LOW_DEBIT_BAL         | LOW_DEBIT_BAL         | 15 | LEFT
+Previous Lowest Debit Balance   | PREV_LOW_DEBIT_BAL    | PREV_LOW_DEBIT_BAL    | 15 | LEFT
+
+# ============================================================
+# SINGLE VARIABLE FIELDS (from RW_CLOS_CA_Main.xml → RW_CLOS_CA_TEMPLATE_VW)
+# ============================================================
+PROPOSAL_NO, COVE_COLLATERLS_COMMENTS, COVE_CONDITIONS_COMMENTS, WORKITEM_NAME,
+APPLICATION_DATE, BRANCH, BUSSINESS_SEGMENT, BORROWER_NAME, CUSTOMER_CIF,
+GROUP_NAME, GROUP_CIF, SUB_SUB_INDUSTRY_TYPE, SUB_INDUSTRY_TYPE, CLASSIFICATION,
+DATE_OF_BIRTH, RISK_RATING, RISK_RATING_ENV_SOCIAL, RELATIONSHIP_DATE,
+BORROWING_SINCE, RELATIONSHIP_MANAGER, APPROVING_AUTHORITY, LAST_REVIEW_STEP,
+NEXT_REVIEW_STEP, CURRENT_ACCOUNT_STRATEGY, PROPOSED_ACCOUNT_STRATEGY,
+SUMMARY_OF_PURPOSAL, NEW_EXIST_FACILTY_REMARKS_CLOB, CONCESSION_CLOB,
+JUSTIFICATION, GROUP_AGGREGATE_OUTSTANDING, GROUP_AGGREGATE_PRESENT,
+GROUP_AGGREGATE_INCREASE, GROUP_AGGREGATE_EXPOSURE, IM_MEMBER_TOTAL_OUTSTANDING,
+IM_MEMBER_TOTAL_LIMIT, IM_MEMBER_TOTAL_INC_DEC, IM_MEMBER_TOTAL_PROPOSED,
+COLLATERAL_COMMENTS, ACCOUNT_CONDUCT_REMARKS, LOAN_REPAYMENT_REMARKS,
+NON_FUNDED_REMARKS, CUSTOMER_PROFIT_REMARKS, GROUP_PROFIT_REMARKS,
+OVERVIEW_BORROWER_BUSINESS, MGMNT_TP_REMARKS, SHARE_COMMENTS_CLOB,
+REMARKS_POLICY, FINANCIAL_COV_REMARKS, NON_FINANCIAL_COV_REMARKS,
+OMV, FSV, TOTAL_CHARGE, SECURITYCVRFSV, SECURITYCVROMV, COMMENTS_ES,
+DILIGENCE_CHECKLIST, NEMA_EIA_REPORT, EAUDITCOMMENTS, IAUDITCOMMENTS,
+ASSESSMENT_FAC_COMMENTS, REPAYMENT_ST_COMMENTS, SALES_PROFITABITY,
+DEBT_COMMENTS, CRED_COMMENTS, FINANACIAL_NET_ASSETS, FINANCIAL_CASH_FLOW,
+CUSTOMER_NAME, CURRENCY_DENOMINATION, AUDITOR, AUDITOR_OPINION,
+PREVIOUS_COVENANTS, PROPOSED_COVENANTS, FACILITY_COMMENTS_CLOB, COMMENTS_CLOB,
+sub_sub_industry_type, PHONE, EMAIL, CONTACT_PERSON, PO_BOX, PHYSICAL_ADDRESS,
+PUBLICLY_LISTED, POLITICALLY_EXPOSED, MARKET_CAPITALISATION, PREVIOUS_RISK_RATING,
+CREDIT_REQUEST, IS_IM_BANK_PARTY_INSIDER, INVENTORY, OTHER_CURRENT_ASSETS,
+OVERDRAFT, DIRECTORS_ACCOUNTS, OTHER_PAYABLES, WORKING_CAPITAL,
+FINANCIAL_NET_GROWTH, DEVELOPMENT_REMARKS
