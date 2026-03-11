@@ -604,6 +604,30 @@ html page with table and variable mapping, xml mapping files for each variable/t
 
 **Before manually extracting data from a Word document, use the built-in Node.js extractor tool.**
 
+## Node.js Installation Check (Mandatory Before Running the Tool)
+
+Before running any `node` or `npm` command, **always verify that Node.js is installed** on the user's system:
+
+```bash
+node --version
+```
+
+- **If Node.js is installed:** Proceed with the tool setup and extraction as normal.
+- **If Node.js is NOT installed (command not found / error):**
+  1. Inform the user:
+     > "Node.js is not installed on your system. It is required to run the DOCX extraction tool."
+  2. Offer to install it:
+     > "Shall I install Node.js for you now? I can run the installer automatically."
+  3. If the user agrees, install Node.js using `winget` (Windows):
+     ```bash
+     winget install OpenJS.NodeJS.LTS
+     ```
+     Or guide the user to download manually from: https://nodejs.org/
+  4. After installation, verify with `node --version` again before proceeding.
+  5. If installation fails or the user prefers a manual install, provide the direct download link and pause until the user confirms Node.js is ready.
+
+> **Never attempt to run `node` or `npm` commands if Node.js is not confirmed to be installed.**
+
 ## Project structure:
 The Node.js project lives inside the `tools/` folder to keep the workspace root clean:
 ```
@@ -654,4 +678,75 @@ node tools/extract-docx.js "CIB OFFER LETTER.docx"
 node tools/extract-docx.js "CIB OFFER LETTER.docx" ./extraction_output
 ```
 This avoids repeating the manual docx-to-zip extraction process each time.
+
+---
+
+# Step 11 — Screenshot / Visual Fallback (When DOCX Extraction is Incomplete)
+
+**When the DOCX extraction tool does not fully capture the template layout** — for example, missing header colors, background fills, styled borders, merged cells, watermarks, logos, or complex formatting — switch to a **screenshot-based visual workflow**.
+
+## When to trigger this fallback:
+- The extracted HTML looks unstyled or is missing sections that are visible in the Word file.
+- Header/footer colors, table shading, or cell backgrounds are absent in the extracted output.
+- The extracted JSON/HTML lacks tables or grids that are clearly visible in the Word document.
+- The user reports that the extracted output does not match the Word file visually.
+- Any formatting detail that cannot be captured as plain text (colors, fonts, layout, column widths) is missing.
+
+## How to handle (Mandatory Steps):
+
+### Step 1 — Request a Screenshot
+Ask the user to provide a screenshot (or screenshots) of the Word document:
+> "The extraction did not fully capture the formatting/layout of this template. Please share a screenshot of the Word document (or the relevant pages/sections) so I can replicate it accurately."
+
+- Accept: PNG, JPG, PDF screenshot, or screen capture of the Word file.
+- If the document has multiple pages or sections, ask for screenshots of each.
+
+### Step 2 — Visual Analysis of the Screenshot
+Once the screenshot is provided, carefully analyze it section by section:
+
+| What to look for | What to generate |
+|---|---|
+| Header area (logo, title, colors, background) | Matching HTML `<header>` or `<div>` with inline CSS (background-color, color, font) |
+| Table structure (borders, shading, merged cells) | HTML `<table>` with `border`, `cellpadding`, `colspan`, `rowspan`, `background-color` |
+| Column headers (bold, background color, text) | `<th>` with matching `background-color`, `color`, `font-weight`, `text-align` |
+| Data rows (alternating colors, borders) | `<tr>` / `<td>` with matching styles |
+| Variable fields (blanks, dot-dot lines, labels) | `##TAGNAME##` markers in the correct position |
+| Grid / table with data columns | Full HTML table + identify as a GRID for XML/SQL mapping |
+| Footer area (page numbers, signatures, lines) | Matching `<footer>` or `<div>` with inline CSS |
+| Fonts, font sizes, spacing | CSS `font-family`, `font-size`, `line-height`, `padding`, `margin` |
+| RTL / Arabic content | Apply RTL rules from Step 10 |
+
+### Step 3 — Replica HTML Generation Rules
+- **The goal is a pixel-accurate replica** of the provided screenshot — not an approximation.
+- **Never assume colors, fonts, or layout** — derive everything from what is visible in the screenshot.
+- If a color is not clearly visible (e.g., borderline dark gray vs. black), **ask the user to confirm** before coding it.
+- If a column width, padding, or margin cannot be determined precisely, **ask the user** rather than guessing.
+- Use **inline CSS** where needed for per-cell or per-row styling; use a `<style>` block for shared styles.
+- Preserve all text exactly as visible in the screenshot — do NOT paraphrase, translate, or reformat.
+- Replace all dynamic/variable content with `##TAGNAME##` markers at the correct positions.
+
+### Step 4 — Table / Grid Detection from Screenshot
+If a table is visible in the screenshot:
+1. **Count columns** and note each column header label.
+2. **Note column widths** (approximate % based on visual proportions).
+3. **Note alignment** per column (left / center / right).
+4. **Check for merged header rows** — replicate `colspan` / `rowspan` exactly.
+5. **Identify the grid name** — ask the user for the `##GRIDNAME##` tag to use.
+6. Generate the full HTML table structure with the `##GRIDNAME##` placeholder where data rows will appear.
+7. Proceed to create the corresponding GRID XML, ListView entry, and SQL view as per the standard workflow.
+
+### Step 5 — User Confirmation (Mandatory Before Proceeding)
+After generating the replica HTML from the screenshot:
+> "I've created the HTML replica based on the screenshot. Please review it and confirm it matches the Word document before I proceed with generating the XML, SQL, and properties files."
+
+- **Do NOT generate XML, SQL, or other files until the user confirms the HTML replica is correct.**
+- If the user requests changes, update the HTML and ask for confirmation again.
+- Only after confirmation — proceed with the full template generation workflow (XML, SQL, properties, ListView).
+
+### Step 6 — What NEVER to do
+- **Never assume** any color, background, font, or layout detail not visible in the screenshot.
+- **Never skip confirmation** — always verify the HTML replica with the user before proceeding.
+- **Never generate partial HTML** — the replica must cover the full visible page/section from the screenshot.
+- **Never translate or change text** — replicate it exactly as shown.
+- **Never combine guessed data with screenshot data** — if something is unclear from both the DOCX extraction and the screenshot, ask the user explicitly.
 
