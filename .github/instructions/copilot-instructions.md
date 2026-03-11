@@ -490,6 +490,80 @@ Final Rendered Document
 
 ---
 
+# Step 10 — Arabic / RTL Template Handling
+
+**When the template content is in Arabic (or any right-to-left language), apply these mandatory standards to the generated HTML file. Never translate or change the template language — keep all text exactly as provided.**
+
+## Reference Sample Data:
+- `.github/SampleData/1105.html` — Production Arabic HTML template (real estate financing agreement in Arabic)
+
+## Mandatory HTML Changes for Arabic/RTL Templates:
+
+### 1. HTML Root
+```html
+<html lang="ar">
+```
+- Set `lang="ar"` (or the appropriate RTL language code) on the `<html>` element.
+
+### 2. CSS Direction & Font
+```css
+body {
+    direction: rtl;
+    font-family: "Arial", sans-serif;
+    /* ... other styles ... */
+}
+
+.arabic {
+    direction: rtl;
+    font-family: arial, sans-serif;
+}
+```
+- Set `direction: rtl` on the `<body>` element.
+- Use Arabic-compatible fonts: `Arial`, `sans-serif` (avoid fonts that don't render Arabic glyphs properly).
+- Add an `.arabic` CSS class for RTL styling.
+
+### 3. Body Class
+```html
+<body class="arabic">
+```
+- Add `class="arabic"` to the `<body>` tag.
+
+### 4. Text Alignment
+- Default text alignment should be `text-align: right` (since Arabic reads right-to-left).
+- Use `text-align: left` only for explicitly LTR content (e.g., English labels, numbers, logos).
+- Use `text-align: center` for centered headings/titles as needed.
+
+### 5. Table Direction
+- All tables inherit `direction: rtl` from the body.
+- Table cell alignment defaults to `text-align: right` for Arabic content.
+
+### 6. Print Header/Footer (if applicable)
+- Use `unicode-bidi: bidi-override` on print header/footer elements when mixing LTR and RTL content.
+- Page numbering follows RTL format: `صفحة X من Y` (Page X of Y in Arabic).
+- Logo/image sections may use `direction: ltr` if the logo is in LTR layout.
+
+### 7. Language Preservation Rule
+- **NEVER** translate, transliterate, or modify the original Arabic text.
+- Keep all Arabic content exactly as provided by the user.
+- `##TAG##` variable markers remain in English/Latin characters — only the surrounding template text is in Arabic.
+- XML EXTNAME/TEMPNAME values remain in English/Latin characters as usual.
+
+## How to Detect Arabic Templates:
+- User explicitly states the template is in Arabic.
+- Source HTML/DOCX file contains Arabic Unicode characters (U+0600–U+06FF range).
+- Source file uses `lang="ar"` or `direction: rtl`.
+- User provides a `.docx` or `.html` file with Arabic text content.
+
+## What Does NOT Change for Arabic Templates:
+- XML file structure (FIELDS, GRIDFIELDS) — same format, same English tag names.
+- SQL view structure — same format, English column aliases.
+- Properties file — same format.
+- ListView XML — same format.
+- File naming conventions — same pattern.
+- Only the **HTML template file** gets RTL/Arabic-specific styling changes described above.
+
+---
+
 # Final Result 
 
 html page with table and variable mapping, xml mapping files for each variable/table, master xml table list file, sql views for each table/variable, any necessary supporting functions/procedures, and a workflow documentation file (after user confirmation).
