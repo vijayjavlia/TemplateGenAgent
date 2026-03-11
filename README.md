@@ -1,6 +1,9 @@
+# vijay.k
+
 # 📄 Template Generation Agent
 
-> **AI-powered dynamic document template generator** — Automatically creates HTML templates, XML mappings, SQL views, and all supporting files from your source documents.
+
+ **AI-powered dynamic document template generator** — Automatically creates HTML templates, XML mappings, SQL views, and all supporting files from your source documents.
 
 ---
 
@@ -171,10 +174,9 @@ TemplateGenAgent/
 
 ## 📜 License
 
-Internal use — Newgen Software Technologies
 
----
 
 <p align="center">
+<b>Author:Vijay.k</b>
   <b>Built with ❤️ using GitHub Copilot + Claude</b>
 </p>
