@@ -160,6 +160,82 @@ TemplateGenAgent/
 
 ---
 
+## � Sample Data Support
+
+For the most accurate template generation, provide sample data **before** the agent starts asking questions. This eliminates guesswork for tag names, column names, and structures.
+
+| Format | What it gives |
+|---|---|
+| **Production HTML file** | Exact `##TAG##` variable names + grid/table names |
+| **SQL CREATE TABLE / CREATE VIEW** | Exact column names for XML and SQL mappings |
+| **Sample rows (CSV / JSON / Excel)** | Column names, data types, sample values |
+| **Existing SQL SELECT query** | FROM/JOIN clause for the SQL view |
+| **Database schema export** | Full table structure for complete mapping |
+
+> The agent automatically scans `##TAG##` patterns from production HTML, classifies them into variables vs grids, and uses exact tag names throughout all generated files.
+
+---
+
+## 🌍 Arabic / RTL Template Support
+
+The agent fully supports **Arabic and right-to-left (RTL)** templates:
+
+- Sets `lang="ar"` and `direction: rtl` on the HTML
+- Uses Arabic-compatible fonts (`Arial`, `sans-serif`)
+- Applies `text-align: right` as default alignment
+- Handles RTL table rendering and print headers/footers
+- **Never translates or modifies** the original Arabic text — all content is preserved exactly
+- XML, SQL, and properties files remain unchanged — only the HTML gets RTL styling
+
+---
+
+## 🖼️ Screenshot / Visual Fallback
+
+When the DOCX extractor cannot fully capture formatting (header colors, backgrounds, merged cells, watermarks, etc.), the agent switches to a **screenshot-based visual workflow**:
+
+1. **Request screenshot** — Agent asks you to share a screenshot of the Word document
+2. **Visual analysis** — Agent replicates the layout pixel-accurately (colors, fonts, borders, table structure)
+3. **Replica HTML** — Generates a faithful HTML replica with inline CSS and `##TAG##` markers
+4. **Confirmation** — Agent waits for your approval before generating XML, SQL, and other files
+
+---
+
+## 📝 Workflow Documentation (Auto-Generated)
+
+After you confirm the generated template, the agent creates a **workflow documentation file** (`processname_docname_WORKFLOW.md`) inside the template folder. It includes:
+
+- Template overview and purpose
+- Complete file inventory with roles
+- System flow diagram (DB → SQL → XML → HTML → Document)
+- Variable mapping table (HTML tag → XML → SQL → DB)
+- Grid/table column-level mapping
+- SQL view details (source tables, JOINs)
+- Step-by-step runtime explanation
+- Troubleshooting guide for common issues
+
+---
+
+## 🧠 Vector Database Context (Qdrant)
+
+The agent uses an **MCP Qdrant vector database** to retrieve relevant context before generating any files:
+
+- Searches for existing patterns, naming conventions, and related templates
+- Retrieves actual database table/column names and schema information
+- Ensures generated files align with the latest project requirements
+- Uses both **semantic search** (embeddings) and **BM25 keyword search** for accuracy
+
+---
+
+## 🔄 Self-Learning Agent
+
+The agent **learns from your feedback** and updates its own instructions:
+
+- When a new requirement is confirmed by the user, the agent updates its instruction file for future use
+- If a generated output is rejected, the agent asks for the correct approach and saves it
+- This ensures consistent, improving results across all future template generation sessions
+
+---
+
 ## 💡 Tips
 
 | Tip | Details |
@@ -169,6 +245,9 @@ TemplateGenAgent/
 | 📂 **Auto-organized** | Each template gets its own output folder automatically |
 | ✅ **Confirm before workflow** | Agent creates workflow docs only after you approve the template |
 | 🔄 **Iterative refinement** | You can ask the agent to adjust any file after generation |
+| 🌍 **RTL/Arabic ready** | Full right-to-left support with no extra configuration |
+| 🖼️ **Visual fallback** | Share a screenshot when DOCX extraction misses formatting |
+| 🧠 **Context-aware** | Vector database provides accurate schema and pattern context |
 
 ---
 
