@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CLOS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>fac_name</DBCOLNAME>
+            <MAPCOLNAME>fac_name</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>sr_no</DBCOLNAME>
+            <MAPCOLNAME>sr_no</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>PRODUCT</DBCOLNAME>
+            <MAPCOLNAME>PRODUCT</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>fac_code</DBCOLNAME>
+            <MAPCOLNAME>fac_code</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>req_ccy</DBCOLNAME>
+            <MAPCOLNAME>req_ccy</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>purpose</DBCOLNAME>
+            <MAPCOLNAME>purpose</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>tenure</DBCOLNAME>
+            <MAPCOLNAME>tenure</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>int_rate</DBCOLNAME>
+            <MAPCOLNAME>int_rate</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>last_approved</DBCOLNAME>
+            <MAPCOLNAME>last_approved</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>current_exposure</DBCOLNAME>
+            <MAPCOLNAME>current_exposure</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>amount</DBCOLNAME>
+            <MAPCOLNAME>amount</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>limit_now</DBCOLNAME>
+            <MAPCOLNAME>limit_now</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>expiry</DBCOLNAME>
+            <MAPCOLNAME>expiry</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+    
+    <GRIDFIELDS COLSPAN="1" LABELALIGNMENT="CENTER" LABELNAME="Name">
+                		
+		
+		
+		
+		
+	
+        
+        <CHILDCOLNAME>
+            
+            
+            
+            
+            
+        </CHILDCOLNAME>
+            
+        <CHILDCOLNAME>
+            <LBLNAME>Name</LBLNAME>
+            <DBCOLNAME>review</DBCOLNAME>
+            <MAPCOLNAME>review</MAPCOLNAME>
+            <LBLWIDTH>0</LBLWIDTH>
+            <COLALIGN>left</COLALIGN>
+        </CHILDCOLNAME>
+    </GRIDFIELDS>
+        	
+
+
+</CLOS>

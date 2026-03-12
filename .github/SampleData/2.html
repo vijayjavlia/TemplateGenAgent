@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+   </head>
+   <style>
+   
+	* {
+		font-family: 'FilsonProRegular' !important;
+		font-size: 13px !important;
+	}
+      @page {
+      margin: 40px;
+       border: 1px solid black;
+      }
+      @page:first {
+	  @top-center {
+		content: "Credit Application - Face Sheet";
+		white-space: pre;
+		font-size: 11px;
+	  }
+	  @top-left {
+		padding-top: 50px;
+		padding-left: 20px;
+		content: "CAM No.: ##camnum##";
+		font-size: 10px;
+	  }
+	  @top-right {
+		padding-top: 50px;
+		padding-right: 20px;
+		padding-right: 20px;
+		content: "Date: ##formatted_date##";
+		font-size: 10px;
+	  }
+	   
+	}
+	.no-row-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+	  
+      table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
+	  font-family: 'FilsonProRegular';
+      font-size: 13px;
+      }
+	  ol,ul{
+		font-family: 'FilsonProRegular';
+		font-size:13px;
+	  }
+      td, th {
+      text-align: left;
+      border: 1px solid black;
+      padding: 5px;
+      vertical-align: top;
+      word-wrap: break-word;
+      max-width: 1px; /* ensures wrapping */
+      overflow-wrap: break-word;
+      white-space: normal;
+	  font-family: 'FilsonProRegular';
+      font-size: 13px;
+      }
+      body {
+      padding: 20px;
+      font-family: 'FilsonProRegular';
+      font-size: 13px;
+      }
+      #whiteid {
+      border: 1px solid white;
+	  font-family: 'FilsonProRegular';
+		font-size:13px;
+      }
+      #tdcolor {
+      background-color: #d3d3d3;
+      }
+      .single-block {
+      page-break-inside: avoid;
+      }
+	  @media print {
+               .pagebreak {
+                    page-break-before: always;
+               }
+          }
+   </style>
+   <script>
+      const date = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('current-date').innerText = date.toLocaleDateString(undefined, options);
+   </script>
+   <body>
+      <table width="100%">
+         <tr>
+            <td id="tdcolor"><b>Lending Unit:</b></td>
+            <td colspan="3">##FIELD_1##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Customer Name:</b></td>
+            <td colspan="3">##CUSTOMER_NAME##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Nature of Business:</b></td>
+            <td>##ACTIVITY_NAME##	</td>
+            <td id="tdcolor"><b>Sector:</b></td>
+            <td>##INDUSTRY_NAME##<!-- - ##INDUSTRY_CODE##--></td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Ownership:</b></td>
+            <td colspan="3">The current shareholding is as below. <br>##NGV_CAM_SHAREHOLDING_BORROWER##</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Borrowing Power</b></td>
+            <td colspan="3">##borr_power##</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Directors</b></td>
+            <td colspan="3"><ol>##director12##</ol></td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Date Established:</b></td>
+            <td >##BUS_COMM##</td>
+            <td id="tdcolor"><b>Date Incorporated:</b></td>
+            <td>##INCOR_FORM_DATE##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Date Account Opened:</b></td>
+            <td >##ACCOUNT_OPENED##</td>
+            <td id="tdcolor"><b>Account Status:</b></td>
+            <td>##FIELD_2##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Credit Grade (Previous - FY##prev_year##):</b></td>
+            <td >##prev_grade##</td>
+            <td id="tdcolor"><b>Credit Grade (Current - FY##curr_year##):</b></td>
+            <td>##curr_grade##	</td>
+         </tr>
+         <tr>
+            <td rowspan="2" id="tdcolor"><b>Sector Exposure:</b></td>
+            <td  id="tdcolor">
+               <b>Sector CAP (%)</b>
+            </td>
+            <td id="tdcolor"><b>Current Sector Exposure (%)</b></td>
+            <td id="tdcolor"><b>New Sector Exposure(%)</b></td>
+         </tr>
+         <tr>
+            <td>##FIELD3##	</td>
+            <td>##FIELD1## </td>
+            <td>##FIELD2##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>TIN:</b></td>
+            <td>##TIN_1##	</td>
+            <td id="tdcolor"><b>FCS No:</b></td>
+            <td>##FCS_1## </td>
+         </tr>
+         <tr>
+            <td rowspan="2" id="tdcolor"><b>ESG Risk Ratings:</b></td>
+            <td id="tdcolor">
+               <b>Environmental</b>
+            </td>
+            <td id="tdcolor"><b>Health & Security</b></td>
+            <td id="tdcolor"><b>Social</b></td>
+         </tr>
+         <tr>
+            <td>##FIELD1_envi##		</td>
+            <td>##FIELD2_health## </td>
+            <td>##FIELD3_social##	</td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Green Financing</b></td>
+            <td colspan="3">##green_fin##</td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <table width="100%">
+                  <tr>
+                     <td width="33.33%" id="tdcolor"><b>Credit policy compliance:</b></td>
+                     <td colspan="2">##macro1##</td>
+                  </tr>
+                  <tr>
+                     <td colspan="3">##NGV_CLOS_CREDIT_POLICY_VIEW## </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td id="tdcolor"><b>Is this insider lending?</b></td>
+            <td colspan="3">##FIELD_lending##</td>
+         </tr>
+         <tr>
+            <td colspan="4"></td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <b>Summary of Key Financials:</b><br>
+               ##NGV_CLOS_FINANCIAL_HIGHLIGHT_VIEW## <br>
+            </td>
+         </tr>
+      </table>
+      <!--<div style="page-break-after: always;"></div>-->
+      <table width="100%" >
+         <tr>
+            <td id="tdcolor" width="24%" ><b>CIF:</b></td>
+            <td width="17%">##cif##</td>
+            <td id="tdcolor" width="41%"><b>Review Date:</b></td>
+            <td width="18%">##next_review_date##</td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <table width="100%">
+                  <tr class="single-block">
+                     <th width="5%">Sr No.</th>
+                     <th id="tdcolor" width="15%">Last Approved Limits</th>
+                     <th id="tdcolor" width="15%">Current Exposure</th>
+                     <th id="tdcolor" width="35%">Facility Details</th>
+                     <th id="tdcolor" width="15%">Limit Now Sought</th>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               ##NGV_CAM_FACILITY_TABLE_NEW## 
+            </td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <table width="100%">
+                  <tr class="single-block">
+                     <th width="5%"></th>
+                     <th id="tdcolor" width="15%">##sum_last_n##</th>
+                     <th id="tdcolor" width="15%">##sum_current_n##</th>
+                     <th id="tdcolor" width="35%"><b>Sub Total</b></th>
+                     <!--<th id="tdcolor" width="15%">##sum_limit_n##</th>-->
+					 <th id="tdcolor" width="15%">##sum_limit_all##</th>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td id="tdcolor"  ><b>Related Party Exposure:</b></td>
+            <td colspan="3">##related_name##<!--##NGV_CLOS_ONEOFF_RELATEDPARTY##--></td>
+         </tr>
+         <!--<tr>
+            <td colspan="4">
+               ##NGV_CAM_FACILITY_TABLE_EXISTING##
+            </td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <table width="100%">
+                  <tr class="single-block">
+                     <th width="5%"></th>
+                     <th id="tdcolor" width="15%">##sum_last##</th>
+                     <th id="tdcolor" width="15%">##sum_current##</th>
+                     <th id="tdcolor" width="35%"><b>Sub Total</b></th>
+                     <th id="tdcolor" width="15%">##sum_limit##</th>
+                  </tr>
+                  <tr  class="single-block">-->
+                     <!--<th width="5%"></th>
+                        <th id="tdcolor" width="15%">##sum_last_all##</th><th id="tdcolor" width="15%">##sum_current_all##</th>-->
+                     <!--<th id="tdcolor" colspan="3"  width="35%"></th>
+                     <th id="tdcolor" width="35%"><b>Grand Total</b></th>
+                     <th id="tdcolor" width="15%">##sum_limit_all##</th>
+                  </tr>
+               </table>
+            </td>
+         </tr>-->
+         <!--<tr><td colspan="4"><table width="100%">
+            <tr class="single-block">	
+            <th width="5%"></th>
+            <th id="tdcolor" width="15%">##sum_last##</th><th id="tdcolor" width="15%">##sum_current##</th>
+            <th id="tdcolor" width="35%"><b>Sub Total</b></th>
+            <th id="tdcolor" width="15%">##sum_limit##</th></tr>
+            </table></td></tr>
+            <tr><td colspan="4"><table width="100%">
+            	<tr class="single-block">	
+            	<th width="5%"></th>-->
+            <!--	<th id="tdcolor" width="15%">##sum_last_all##</th><th id="tdcolor" width="15%">##sum_current_all##</th>
+            <th id="tdcolor" width="30%"></th>
+            	<th id="tdcolor" width="35%"><b>Grand Total</b></th>
+            	<th id="tdcolor" width="15%">##sum_limit_all##</th></tr>
+            	</table></td></tr>-->
+         <!-- <tr><td colspan="4">Conversion Rate: ##NOTIONAL_RATE##</td></tr>
+            <tr><td colspan="4"><b>1 USD: ##CURRENCY## ##NOTIONAL_RATE##
+            <br>
+            ##COMMENTS_otherbank##</b></td></tr> -->
+         <tr>
+            <td colspan="4"><b>Transaction Dynamics:</b></br> ##NGV_CLOS_CAM_VIEW_TRANSAC_DYNAMIC##</td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <b>Exposure across the Other Banks</b><br>
+               ##NGV_CLOS_OTHERBANK_LOAN_VIEW##
+               <table width="100%">
+                  <tr>
+                     <td width="84%"><b>Global Exposure:</b></td>
+                     <td>##FIELD_GLOBAL##
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+      <br>
+      <!-- <table width="100%">
+         <tr><td width="100%" colspan="4" id="tdcolor"><b>Covenants and Conditions</b></td></tr>
+         <tr><td width="35%" id="tdcolor"><b>Conditions Precedent to drawdown	</b></td><td width="20%" id="tdcolor"><b>Existing/New	</b></td><td width="20%" id="tdcolor"><b>Status</b></td><td width="25%" id="tdcolor"><b>Comment</b> </td></tr>
+         <tr><td>##DES_COMMENT##	</td><td>New</td><td>##status_one##</td><td>	Annual audit by NEMA to be undertaken by Aug 2024</td></tr>
+         <tr><td width="35%" id="tdcolor"><b>Conditions Post drawdown	</b></td><td width="20%" id="tdcolor"><b>Existing/New	</b></td><td width="20%" id="tdcolor"><b>Status</b></td><td width="25%" id="tdcolor"><b>Comment</b> </td></tr>
+         
+         <tr><td>##DES_COMMENT2##	</td><td>New</td><td>##status_two##</td><td>	Issues to be addressed by Aug 2024 during the next scheduled visit</td></tr>
+         </table> -->
+      <table width="100%">
+         <tr>
+            <td width="100%" id="tdcolor"><b>Covenants and Conditions</b></td>
+         </tr>
+         <tr>
+            <td width="100%" style="padding:0px;">##NGV_CLOS_CAM_PRE_DRAW##</td>
+         </tr>
+         <tr>
+            <td width="100%" style="padding:0px;">##NGV_CLOS_CAM_POST_DRAW##</td>
+         </tr>
+      </table>
+      <br>
+      <table width="100%" >
+         <!-- <tr><th width="25%" id="tdcolor">Financial Covenants</th><th id="tdcolor">New/Existing</th><th id="tdcolor">Complied</th><th id="tdcolor">Level</th><th id="tdcolor">Penalty/Rewards</th><th id="tdcolor">Definition/Remarks</th></tr> -->
+         <tr>
+            <td style="padding:0px;">##NGV_CLOS_COVENANTS_FIN_VIEW##</td>
+         </tr>
+      </table>
+      <br>
+      <table width="100%" >
+         <!-- <tr><th width="25%" id="tdcolor">Non-Financial Covenants</th><th id="tdcolor">New/Existing</th><th id="tdcolor">Complied</th><th id="tdcolor">Level</th><th id="tdcolor">Penalty/Rewards</th><th id="tdcolor">Definition/Remarks</th></tr> -->
+         <tr>
+            <td style="padding:0px;" >##NGV_CLOS_COVENANTS_TICKLERS_VIEW## </td>
+         </tr>
+      </table>
+      <br>
+      <table width="100%">
+         <!-- <tr><th id="tdcolor" width="35%">Key Risk Trigger</th><th id="tdcolor">By whom</th><th id="tdcolor">Frequency</th><th id="tdcolor">Required Action</th></tr> -->
+         <tr>
+            <td  style="padding:0px;">##INTERNAL_REPORTING_TRIGGER_VIEW##</td>
+         </tr>
+      </table>
+      <br>
+      <table width="100%">
+         <tr>
+            <td colspan="2">
+               <b>Security Summary:</b> <br><br>
+               ##NGV_CLOS_SUMMARY_SECURITY_VIEW##
+               <br>
+               <table width="100%">
+                  <tr>
+                     <td id="tdcolor" width="75%">LTV(%)</td>
+                     <td>##AGGREGATE_LTV##</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <!-- <tr><td id="tdcolor">LTV</td><td>##AGGREGATE_LTV##</td></tr> -->
+         <tr>
+            <td colspan="2" >
+               <b>Remarks:</b> <br> 
+			    <div id="Q_NG_COMMENTS_DATA_DUMMY_RTE">##Q_NG_COMMENTS_DATA_DUMMY_RTE##</div>
+              <!--	 <div id="Q_SEC_SUMMARY_TOTAL_Field1">##Q_SEC_SUMMARY_TOTAL_Field1##</div>
+               <table width="90%">
+                  <tr><td style="padding: 0px;">
+                  ##NGV_CLOS_REMARKS_HISTORY_VIEW##
+                  </td></tr>
+                  </table>-->
+            </td>
+         </tr>
+      </table>
+      <br>
+      <table width="100%" style="text-align:left; table-layout: fixed; word-wrap: break-word;">
+         <tr>
+            <td width="5%" id="whiteid"><b>1.0</b></td>
+            <td id="whiteid"><b>EXECUTIVE SUMMARY</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.1</b></td>
+            <td id="whiteid"><b>Customer's Business</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_CUSTOMER_BUSINESS">##Q_CLOS_EXCUTIVE_SUMMARY_CUSTOMER_BUSINESS##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.2</b></td>
+            <td id="whiteid"><b>Proposal/Financing need</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_PROPOSAL_FINANCING_NEEDS">##Q_CLOS_EXCUTIVE_SUMMARY_PROPOSAL_FINANCING_NEEDS##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.3</b></td>
+            <td id="whiteid"><b>Source of repayment</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_SOURCE_OF_REPAYMENT">##Q_CLOS_EXCUTIVE_SUMMARY_SOURCE_OF_REPAYMENT##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.4</b></td>
+            <td id="whiteid"><b>Legal counterparties and credit base</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_LEGAL_COUNTERPARTIES">##Q_CLOS_EXCUTIVE_SUMMARY_LEGAL_COUNTERPARTIES##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.5</b></td>
+            <td id="whiteid"><b>Business strategy (Plans for the business)</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_BUSINESS_STRATEGY">##Q_CLOS_EXCUTIVE_SUMMARY_BUSINESS_STRATEGY##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.6</b></td>
+            <td id="whiteid"><b>Why we want to do business</b></td>
+         </tr>
+		 <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+			  <p>Summary of RORWA (12 Months View)</p>
+              ##NGV_CLOS_RORWA_CAM##
+			  <!--<p>RORWA Inference</p>
+			  <p>##RORWA##</p>-->
+            </td>
+         </tr>
+		 <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_WHY_BUSINESS">##Q_CLOS_EXCUTIVE_SUMMARY_WHY_BUSINESS##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>1.7</b></td>
+            <td id="whiteid"><b>Strategy for the Client</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_CLOS_EXCUTIVE_SUMMARY_STRATEGY_CLIENT">##Q_CLOS_EXCUTIVE_SUMMARY_STRATEGY_CLIENT##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>2.0</b></td>
+            <td id="whiteid"><b>Fact Sheet</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>2.1</b></td>
+            <td id="whiteid"><b>History</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_Background_Company_Background">##Q_Background_Company_Background##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>2.2</b></td>
+            <td id="whiteid"><b>Ownership</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <div id="Q_Proposal_Info_Conditions">##Q_Proposal_Info_Conditions##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>3.0</b></td>
+            <td id="whiteid"><b>Business Analysis</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>3.1</b></td>
+            <td id="whiteid"><b>Key Risks:</b></td>
+         </tr>
+         <tr>
+            <td width="5%" id="whiteid"></td>
+            <td id="whiteid">
+               <div id="QI_Business_Risk_Analysis_rtf_Delayed_Payment_Risk">##QI_Business_Risk_Analysis_rtf_Delayed_Payment_Risk##</div>
+            </td>
+         </tr>
+         <tr>
+            <td id="whiteid"><b>3.2</b></td>
+            <td id="whiteid"><b>Internal Factors</b></td>
+         </tr>
+         <tr>
+            <td id="whiteid"></td>
+            <td id="whiteid">
+               <table width="100%">
+                  <tr>
+                     <td id="whiteid"  style="width: 8%;"><b>3.2.1</b></td>
+                     <td id="whiteid"><b>Management</b></td>
+                  </tr>
+                  <tr>
+                     <td id="whiteid"></td>
+                     <td id="whiteid">
+                        <div  id="QI_Business_Risk_Analysis_rtf_Managements">##QI_Business_Risk_Analysis_rtf_Managements##</div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td id="whiteid"></td>
+                     <td id="whiteid">
+                        <b>Table: Management profile</b> <br>
+                        ##NGV_CLOS_MANAGEMENT_PROFILE_VIEW## <br>
+                        <b>Comments:</b>
+                        <div id="Q_Background_Mgmt_Info_Remarks">##Q_Background_Mgmt_Info_Remarks##</div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td id="whiteid"  style="width: 8%;"><b>3.2.2</b></td>
+                     <td id="whiteid">
+                        <b>Products</b> 
+                        <div id="QI_Business_Risk_Analysis_rtf_Products">##QI_Business_Risk_Analysis_rtf_Products##</div>
+                     </td>
+                  </tr>
+                  <!--
+                  <tr>
+                     <td id="whiteid"  style="width: 8%;"><b>3.2.3</b></td>
+                     <td id="whiteid">
+                        <b>Business Status</b> 
+                        <div id="QI_Business_Risk_Analysis_rtf_Strength_Weaknesses">##QI_Business_Risk_Analysis_rtf_Strength_Weaknesses##</div>
+                     </td>
+                  </tr>
+                  -->
+                  <tr>
+                     <td id="whiteid"  style="width: 8%;"><b>3.2.3</b></td>
+                     <td id="whiteid">
+                        <b>Investments</b> 
+                        <div id="QI_Business_Risk_Analysis_rtf_Resources">##QI_Business_Risk_Analysis_rtf_Resources##</div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td id="whiteid"  style="width: 8%;"><b>3.2.4</b></td>
+                     <td id="whiteid">
+                        <b>Growth Strategy</b> 
+                        <div id="QI_Business_Risk_Analysis_rtf_Growth_Strategies">##QI_Business_Risk_Analysis_rtf_Growth_Strategies##</div>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      
+      <tr>
+         <td id="whiteid"><b>3.3</b></td>
+         <td id="whiteid"><b>External Factors</b></td>
+      </tr>
+      <tr>
+         <td id="whiteid"></td>
+         <td id="whiteid">
+            <table width="100%">
+               <tr>
+                  <td id="whiteid" style="width: 8%;"><b>3.3.1</b></td>
+                  <td id="whiteid">
+                     <b>Economic trend</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Economic_Trends">##QI_Business_Risk_Analysis_rtf_Economic_Trends##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" style="width: 5%;"><b>3.3.2</b></td>
+                  <td id="whiteid">
+                     <b>Environmental trend</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Environmental_Trends">##QI_Business_Risk_Analysis_rtf_Environmental_Trends##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" style="width: 5%;"><b>3.3.3</b></td>
+                  <td id="whiteid">
+                     <b>Technology trend</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Technological_Trends">##QI_Business_Risk_Analysis_rtf_Technological_Trends##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" style="width: 5%;"><b>3.3.4</b></td>
+                  <td id="whiteid">
+                     <b>Legal Trends</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_LegalTrends">##QI_Business_Risk_Analysis_rtf_LegalTrends##</div>
+                  </td>
+               </tr>
+	       <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.5</b></td>
+                  <td id="whiteid">
+                     <b>Political Trends</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Political_Trends">##QI_Business_Risk_Analysis_rtf_Political_Trends##</div>
+                  </td>
+               </tr>
+			   <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.6</b></td>
+                  <td id="whiteid">
+                     <b>Social Trends</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Social_Trends">##QI_Business_Risk_Analysis_rtf_Social_Trends##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" style="width: 5%;"><b>3.3.7</b></td>
+                  <td id="whiteid">
+                     <b>Power of Suppliers</b>
+                     <div id="QI_Business_Risk_Analysis_rtf_Security_Risks">##QI_Business_Risk_Analysis_rtf_Security_Risks##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" style="width: 5%;"><b>3.3.8</b></td>
+                  <td id="whiteid">
+                     <b>Power of Customers</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Power_Customers">##QI_Business_Risk_Analysis_rtf_Power_Customers##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.9</b></td>
+                  <td id="whiteid">
+                     <b>Competitors</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Competition">##QI_Business_Risk_Analysis_rtf_Competition##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.10</b></td>
+                  <td id="whiteid">
+                     <b>Threat of New Entrants</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Markets">##QI_Business_Risk_Analysis_rtf_Markets##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.11</b></td>
+                  <td id="whiteid">
+                     <b>Threat of Substitution</b> 
+                     <div id="QI_Business_Risk_Analysis_rtf_Business_Risk_Analysis">##QI_Business_Risk_Analysis_rtf_Business_Risk_Analysis##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"  style="width: 5%;"><b>3.3.12</b></td>
+                  <td id="whiteid"><b>Environmental, Social, and Governance Risk</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid" colspan="2">
+                     <ul>
+                        <li>
+                           <b>Environmental risk</b> 
+                           <div id="QI_Business_Risk_Analysis_rtf_Environmental_Risk">##QI_Business_Risk_Analysis_rtf_Environmental_Risk##</div>
+                        </li>
+                        <li>
+                           <b>Social</b> 
+                           <div id="QI_Business_Risk_Analysis_rtf_Social_Risk">##QI_Business_Risk_Analysis_rtf_Social_Risk##</div>
+                        </li>
+                        <li>
+                           <b>Governance</b> 
+                           <div id="QI_Business_Risk_Analysis_rtf_Governance_Risk">##QI_Business_Risk_Analysis_rtf_Governance_Risk##</div>
+                        </li>
+                     </ul>
+                  </td>
+               </tr>
+			   
+			    </table></td></tr>
+               <tr>
+                  <td id="whiteid"><b>3.4</b></td>
+                  <td id="whiteid"><b>Strengths, Weakness, Opportunities and Threats</b> </td>
+               </tr>
+               <tr>
+                  <td id="whiteid" colspan="2" style="width: 100%;table-layout: fixed; word-wrap: break-word;">
+                     <table border="1" style="border-collapse: collapse; width: 100%; table-layout: fixed; word-wrap: break-word;">
+                        <tr>
+                           <td id="tdcolor" style="width: 50%;"><b>Strength</b></td>
+                           <td id="tdcolor" style="width: 50%;"><b>Weakness</b></td>
+                        </tr>
+                        <tr>
+                           <td style="vertical-align: top; word-wrap: break-word;">
+                              <div id="Q_Swot_Analysis_strength">##Q_Swot_Analysis_strength##</div>
+                           </td>
+                           <td style="vertical-align: top; word-wrap: break-word;">
+                              <div id="Q_Swot_Analysis_weakness">##Q_Swot_Analysis_weakness##</div>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td id="tdcolor" style="width: 50%;"><b>Opportunities</b></td>
+                           <td id="tdcolor" style="width: 50%;"><b>Threats</b></td>
+                        </tr>
+                        <tr>
+                           <td style="word-wrap: break-word;">
+                              <div id="Q_Swot_Analysis_opportunity">##Q_Swot_Analysis_opportunity##</div>
+                           </td>
+                           <td style="word-wrap: break-word;">
+                              <div id="Q_Swot_Analysis_threat">##Q_Swot_Analysis_threat##</div>
+                           </td>
+                        </tr>
+                     </table>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.0</b></td>
+                  <td id="whiteid"><b>Financial Analysis</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_Proposal_Info_Field4">##Q_Proposal_Info_Field4##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.1</b></td>
+                  <td id="whiteid"><b>Capital Structure/ Gearing</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_balance_sheet_anlys">##Q_FINANCIAL_ANLYS_CMNT_balance_sheet_anlys##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.2</b></td>
+                  <td id="whiteid"><b>Operating Performance/Profitability</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_operating_Results">##Q_FINANCIAL_ANLYS_CMNT_operating_Results##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.3</b></td>
+                  <td id="whiteid"><b>Liquidity</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_auditor_qualification">##Q_FINANCIAL_ANLYS_CMNT_auditor_qualification##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.4</b></td>
+                  <td id="whiteid"><b>Working Assets</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_age_wise_anlys">##Q_FINANCIAL_ANLYS_CMNT_age_wise_anlys##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>4.5</b></td>
+                  <td id="whiteid"><b>Debt Serviceability</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_dues_movement_comment">##Q_FINANCIAL_ANLYS_CMNT_dues_movement_comment##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>5.0</b></td>
+                  <td id="whiteid"><b>Cash Flow Projections and Assumptions:</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_cashflow_anlys">##Q_FINANCIAL_ANLYS_CMNT_cashflow_anlys##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>6.0</b></td>
+                  <td id="whiteid"><b>Cash Flow Sensitivity:</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_FINANCIAL_ANLYS_CMNT_other_comment" style="font-family: 'FilsonProRegular'; font-size:13px;">##Q_FINANCIAL_ANLYS_CMNT_other_comment##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>7.0</b></td>
+                  <td id="whiteid"><b>Current Account Analysis</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_Proposal_Info_Field3" style="font-family: 'FilsonProRegular'; font-size:13px;">##Q_Proposal_Info_Field3##</div>
+                  </td>
+               </tr>
+	       <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     ##NGV_CLOS_ONE_OFF_ACTIVITY_PERF##
+		     <p><strong>Comments:</strong></p>
+      		     <div id="QI_Account_Perf_comments" >##QI_Account_Perf_comments##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>8.0</b></td>
+                  <td id="whiteid"><b>CRB Assessment</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">##CBIL_COMMENTS##</td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>9.0</b></td>
+                  <td id="whiteid"><b>Media Search</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     <div id="Q_CHECKS_COMMENTS_Experian_Comments">##Q_CHECKS_COMMENTS_Experian_Comments##</div>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"><b>10.0</b></td>
+                  <td id="whiteid"><b>Recommendation by Business</b></td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">##Recommendation##</td>
+               </tr>
+               <br>
+               <!--<tr><td id="whiteid"></td><td id="whiteid">On the basis of risk and reward, we recommend the request.</td></tr>-->
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid">
+                     Proposed by (Sign): ##relationship_manager##  <br>
+                     <b>Title/name: Relationship Manager</b>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid"> <br>
+                     Proposed by (Sign): ##rm_team_lead##	<br>
+                     <b>Title/name:  Sector Head</b>
+                  </td>
+               </tr>
+               <tr>
+                  <td id="whiteid"></td>
+                  <td id="whiteid"> ##status_one##
+                  </td>
+               </tr>
+               <!-- <tr><td id="whiteid"></td><td id="whiteid"> <br>
+                  Recommended by (Sign):  ##credit_analysis_maker## <br>
+                  	<b>Title/name:  Credit Analysis Maker </b>
+                  </td></tr>
+                  <tr><td id="whiteid"></td><td id="whiteid"> <br>
+                  Recommended by (Sign): ##credit_analysis_checker##	<br>
+                  	<b>Title/name:  Credit Analysis Checker</b>
+                  </td></tr>
+                  <tr><td id="whiteid"></td><td id="whiteid"> <br>
+                  Recommended by (Sign): ##credit_manager## <br>
+                  	<b>Title/name: Credit Manager </b>
+                  </td></tr>
+                  <tr><td id="whiteid"></td><td id="whiteid"> <br>
+                  Approved by (Sign): ##credit_approver## <br>
+                  	<b>Title/name: Credit Approver  </b><br>
+                  	Remarks: ##credit_remarks##
+                  </td></tr> -->
+            </table>
+   </body>
+</html>
